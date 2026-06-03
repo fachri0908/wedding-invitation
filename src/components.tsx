@@ -611,7 +611,7 @@ export function SectionLabel({
 export function ScrollCue() {
   return (
     <div className="flex flex-col items-center gap-2 text-ice-700/80">
-      <span className="text-[10px] uppercase tracking-[0.4em]">Scroll</span>
+      <span className="text-[10px] uppercase tracking-[0.4em]">Geser</span>
       <div className="relative h-9 w-5 rounded-full border border-ice-700/50">
         <span className="absolute left-1/2 top-2 block h-1.5 w-1 -translate-x-1/2 rounded-full bg-ice-700 animate-scrollDot" />
       </div>
@@ -1251,7 +1251,7 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
       </div>
 
       <p className="font-body text-[10px] uppercase tracking-[0.5em] text-ice-800">
-        You are cordially invited
+        Dengan hormat kami mengundang Anda
       </p>
 
       {/* ───── envelope ───── */}
@@ -1361,7 +1361,7 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
         disabled={opening}
         className="group relative mt-12 overflow-hidden rounded-full bg-ice-800 px-10 py-3.5 font-body text-xs uppercase tracking-[0.4em] text-white shadow-ice transition-all hover:bg-ice-900 active:scale-95 disabled:opacity-0"
       >
-        <span className="relative z-10">Open Invitation</span>
+        <span className="relative z-10">Buka Undangan</span>
         <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
       </button>
     </div>

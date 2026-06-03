@@ -8,15 +8,15 @@ function Countdown() {
   if (over) {
     return (
       <p className="font-display text-lg italic text-ice-800">
-        The day has arrived.
+        Hari yang dinanti telah tiba.
       </p>
     );
   }
   const units: Array<[string, number]> = [
-    ['Days', days],
-    ['Hours', hours],
-    ['Mins', mins],
-    ['Secs', secs],
+    ['Hari', days],
+    ['Jam', hours],
+    ['Menit', mins],
+    ['Detik', secs],
   ];
   return (
     <div className="grid w-full grid-cols-4 gap-2">
@@ -68,22 +68,22 @@ export const EventSection = memo(function EventSection() {
       </Layer>
       <Content className="gap-4">
         <div className="reveal-swing" style={revealStyle(80)}>
-          <SectionLabel numeral="III" title="Save the Date" />
+          <SectionLabel numeral="III" title="Simpan Tanggal" />
         </div>
         <div className="reveal-flip w-full" style={revealStyle(240)}>
           <Countdown />
         </div>
         <div className="reveal-left w-full" style={revealStyle(480)}>
           <EventCard
-            title="Holy Matrimony"
-            time="10:00 AM"
+            title="Akad Nikah"
+            time="10.00 WITA"
             place="St. Glacier Chapel"
           />
         </div>
         <div className="reveal-right w-full" style={revealStyle(640)}>
           <EventCard
-            title="Reception"
-            time="6:00 PM"
+            title="Resepsi"
+            time="18.00 WITA"
             place="Glacier Pavilion Ballroom"
           />
         </div>
@@ -91,7 +91,7 @@ export const EventSection = memo(function EventSection() {
           className="reveal-zoom mt-2 rounded-full bg-ice-700 px-6 py-3 font-body text-xs uppercase tracking-[0.3em] text-white shadow-ice transition-transform active:scale-95 hover:bg-ice-800"
           style={revealStyle(820)}
         >
-          Open in Maps
+          Buka Peta
         </button>
       </Content>
     </Section>

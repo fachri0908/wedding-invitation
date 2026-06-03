@@ -3,9 +3,21 @@ import { Content, Layer, Section, SectionLabel } from '../components';
 import { revealStyle } from '../constants';
 
 const STORY_ITEMS = [
-  { y: '2020', t: 'First Met', d: 'A winter coffee in an unexpected place.' },
-  { y: '2023', t: 'First Trip', d: 'Chased auroras across icy fjords.' },
-  { y: '2025', t: 'The Proposal', d: 'Under snowfall, the answer was yes.' },
+  {
+    y: '2020',
+    t: 'Pertama Bertemu',
+    d: 'Sebuah pertemuan tak terduga yang mengawali segalanya.',
+  },
+  {
+    y: '2023',
+    t: 'Semakin Dekat',
+    d: 'Melewati banyak cerita dan tumbuh bersama.',
+  },
+  {
+    y: '2025',
+    t: 'Lamaran',
+    d: 'Sebuah janji untuk melangkah ke jenjang yang lebih serius.',
+  },
 ];
 
 export const StorySection = memo(function StorySection() {
@@ -17,7 +29,7 @@ export const StorySection = memo(function StorySection() {
       </Layer>
       <Content className="gap-4">
         <div className="reveal-down" style={revealStyle(80)}>
-          <SectionLabel numeral="II" title="Our Story" />
+          <SectionLabel numeral="II" title="Kisah Kami" />
         </div>
         <ol className="mt-2 flex w-full flex-col gap-4">
           {STORY_ITEMS.map((it, i) => (

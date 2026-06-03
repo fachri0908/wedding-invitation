@@ -33,7 +33,7 @@ export const HeroSection = memo(function HeroSection() {
           className="reveal-blur mt-6 font-body text-xs uppercase tracking-[0.5em] text-ice-700"
           style={revealStyle(260)}
         >
-          The Wedding of
+          Pernikahan
         </p>
         <h1
           className="reveal-blur shimmer-text mt-4 font-script text-7xl leading-none drop-shadow-sm"

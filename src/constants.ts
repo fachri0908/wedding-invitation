@@ -1,11 +1,15 @@
 import type { CSSProperties } from 'react';
 
 export const COUPLE = {
-  bride: 'Aria',
-  groom: 'Daniel',
+  bride: 'Annisa',
+  groom: 'Fachri',
+  brideFull: 'Annisa Rahmah',
+  groomFull: 'Fachri Ahmad Zulkarnain',
   brideInitial: 'A',
-  groomInitial: 'D',
-  date: 'Saturday, 12 September 2026',
+  groomInitial: 'F',
+  brideParents: 'Putri dari Bapak Hosaini & Ibu Tina Guswati',
+  groomParents: 'Putra dari Bapak Masril & Ibu Yulianis',
+  date: 'Sabtu, 12 September 2026',
   dateShort: '12 . 09 . 2026',
   location: 'Glacier Pavilion, Bali',
   weddingDate: new Date('2026-09-12T10:00:00+08:00'),

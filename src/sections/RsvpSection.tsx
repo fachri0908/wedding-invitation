@@ -75,7 +75,7 @@ export const RsvpSection = memo(function RsvpSection() {
           className="reveal-zoomout shimmer-text font-display text-3xl italic"
           style={revealStyle(280)}
         >
-          Will you join us?
+          Apakah Anda akan hadir?
         </h3>
         {sent ? (
           <div
@@ -84,12 +84,12 @@ export const RsvpSection = memo(function RsvpSection() {
           >
             <div className="glass-card rounded-2xl px-6 py-5 text-center">
               <p className="font-display text-2xl italic text-ice-800">
-                Thank you, {name || 'dear friend'}
+                Terima kasih, {name || 'Sahabat'}
               </p>
               <p className="mt-2 text-xs uppercase tracking-[0.3em] text-ice-700">
                 {attend === 'yes'
-                  ? "We can't wait to see you"
-                  : 'You will be missed'}
+                  ? 'Kami menantikan kehadiran Anda'
+                  : 'Anda akan kami rindukan'}
               </p>
             </div>
           </div>
@@ -105,7 +105,7 @@ export const RsvpSection = memo(function RsvpSection() {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Your name"
+              placeholder="Nama Anda"
               className="reveal-left glass-card w-full rounded-full px-5 py-3 text-ice-900 placeholder:text-ice-700/70 focus:outline-none focus:ring-2 focus:ring-white"
               style={revealStyle(480)}
             />
@@ -121,7 +121,7 @@ export const RsvpSection = memo(function RsvpSection() {
                       : 'glass-card text-ice-900'
                   }`}
                 >
-                  {v === 'yes' ? 'Joyfully Accept' : 'Regretfully Decline'}
+                  {v === 'yes' ? 'Dengan Senang Hati' : 'Mohon Maaf Berhalangan'}
                 </button>
               ))}
             </div>
@@ -131,7 +131,7 @@ export const RsvpSection = memo(function RsvpSection() {
               className="reveal-zoom group relative mt-2 overflow-hidden rounded-full bg-white px-6 py-3 text-xs font-medium uppercase tracking-[0.3em] text-ice-800 shadow-ice disabled:opacity-50"
               style={revealStyle(820)}
             >
-              <span className="relative z-10">Send RSVP</span>
+              <span className="relative z-10">Kirim Konfirmasi</span>
               <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-ice-200 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
             </button>
           </form>

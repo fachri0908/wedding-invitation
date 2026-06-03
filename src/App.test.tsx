@@ -4,5 +4,5 @@ import App from './App';
 
 test('renders couple names in hero', () => {
   render(<App />);
-  expect(screen.getByText(/The Wedding of/i)).toBeInTheDocument();
+  expect(screen.getByText(/Pernikahan/i)).toBeInTheDocument();
 });

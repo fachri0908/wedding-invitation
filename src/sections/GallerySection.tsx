@@ -12,13 +12,13 @@ export const GallerySection = memo(function GallerySection() {
       </Layer>
       <Content className="gap-3">
         <div className="reveal-down" style={revealStyle(80)}>
-          <SectionLabel numeral="IV" title="Moments" />
+          <SectionLabel numeral="IV" title="Momen" />
         </div>
         <h3
           className="reveal-blur font-display text-3xl italic text-ice-800"
           style={revealStyle(240)}
         >
-          Cherished Memories
+          Kenangan Terindah
         </h3>
         <div className="mt-2 grid w-full grid-cols-2 gap-3">
           {Array.from({ length: TILE_COUNT }).map((_, i) => (

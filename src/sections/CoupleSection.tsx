@@ -32,23 +32,26 @@ export const CoupleSection = memo(function CoupleSection() {
       </Layer>
       <Content className="gap-5">
         <div className="reveal-down" style={revealStyle(80)}>
-          <SectionLabel numeral="I" title="The Couple" />
+          <SectionLabel numeral="I" title="Mempelai" />
         </div>
-        <div className="reveal-tilt-l w-full" style={revealStyle(260)}>
+        
+        <div className="reveal-tilt-r w-full" style={revealStyle(720)}>
           <PersonCard
-            name={COUPLE.bride}
-            role="The Bride"
-            parents="Daughter of Mr. & Mrs. Hartono"
+            name={COUPLE.groomFull}
+            role="Mempelai Pria"
+            parents={COUPLE.groomParents}
           />
         </div>
+        
         <div className="reveal-zoom" style={revealStyle(520)}>
           <span className="font-script text-5xl text-ice-600 drop-shadow">&</span>
         </div>
-        <div className="reveal-tilt-r w-full" style={revealStyle(720)}>
+        
+        <div className="reveal-tilt-l w-full" style={revealStyle(260)}>
           <PersonCard
-            name={COUPLE.groom}
-            role="The Groom"
-            parents="Son of Mr. & Mrs. Wijaya"
+            name={COUPLE.brideFull}
+            role="Mempelai Wanita"
+            parents={COUPLE.brideParents}
           />
         </div>
       </Content>

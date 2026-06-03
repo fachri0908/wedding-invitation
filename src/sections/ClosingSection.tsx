@@ -25,13 +25,13 @@ export const ClosingSection = memo(function ClosingSection({ onRestart }: { onRe
           className="reveal-blur font-body text-[10px] uppercase tracking-[0.5em] text-ice-700"
           style={revealStyle(320)}
         >
-          With Joy & Gratitude
+          Dengan Sukacita & Syukur
         </p>
         <h3
-          className="reveal-zoomout shimmer-text font-script text-6xl"
+          className="reveal-zoomout shimmer-text font-script text-6xl leading-[1.35] px-6 py-2 overflow-visible"
           style={revealStyle(480)}
         >
-          Thank You
+          Terima Kasih
         </h3>
         <div className="reveal-scale" style={revealStyle(680)}>
           <OrnamentDivider width={180} />
@@ -40,7 +40,7 @@ export const ClosingSection = memo(function ClosingSection({ onRestart }: { onRe
           className="reveal-up max-w-xs text-sm italic text-ice-700"
           style={revealStyle(820)}
         >
-          Your presence is the greatest gift we could ever ask for.
+          Kehadiran Anda adalah hadiah terindah bagi kami.
         </p>
         <p
           className="reveal-up mt-1 font-display text-lg italic text-ice-800"
@@ -53,7 +53,7 @@ export const ClosingSection = memo(function ClosingSection({ onRestart }: { onRe
           className="reveal-zoom mt-4 rounded-full border border-ice-700/40 bg-white/20 px-6 py-3 text-[10px] uppercase tracking-[0.4em] text-ice-700 backdrop-blur-md transition-all hover:bg-white/40"
           style={revealStyle(1120)}
         >
-          ↑ Back to Top
+          ↑ Kembali ke Atas
         </button>
       </Content>
     </Section>
