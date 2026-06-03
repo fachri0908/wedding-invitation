@@ -1,4 +1,4 @@
-import { CSSProperties, useRef, useState } from 'react';
+import { CSSProperties, useCallback, useRef, useState } from 'react';
 import { ContinuousBackground, Nav, OpeningGate } from './components';
 import { SectionTransition, Trigger } from './transitions';
 import { SECTIONS, SectionId } from './constants';
@@ -34,15 +34,18 @@ export default function App() {
   const active = useActiveSection(scrollerRef, SECTIONS);
   const revealed = useRevealed(scrollerRef, SECTIONS, opened);
 
-  const go = (id: string) => {
+  // stable identities so memoized Nav / ClosingSection don't re-render on `trans`
+  const go = useCallback((id: string) => {
     const i = SECTIONS.indexOf(id as SectionId);
     if (i >= 0) goRef.current(i);
-  };
+  }, [goRef]);
+  const handleOpen = useCallback(() => setOpened(true), []);
+  const handleRestart = useCallback(() => go('hero'), [go]);
 
   return (
     <>
       <ContinuousBackground />
-      {!opened ? <OpeningGate onOpen={() => setOpened(true)} /> : null}
+      {!opened ? <OpeningGate onOpen={handleOpen} /> : null}
       <SectionTransition trigger={trans} />
       <Nav active={active} sections={SECTIONS} onGo={go} visible={opened} />
       <RevealContext.Provider value={revealed}>
@@ -62,7 +65,7 @@ export default function App() {
           <EventSection />
           <GallerySection />
           <RsvpSection />
-          <ClosingSection onRestart={() => go('hero')} />
+          <ClosingSection onRestart={handleRestart} />
         </main>
       </RevealContext.Provider>
     </>

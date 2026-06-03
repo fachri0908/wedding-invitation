@@ -48,6 +48,15 @@
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
+  /* Coarse pointers (phones): backdrop-blur repaints behind every card on
+     scroll — swap for a solid translucent fill. Desktop keeps the live blur. */
+  @media (pointer: coarse) {
+    .glass-card {
+      background: rgba(244, 250, 249, 0.82);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
   .reveal,
   .reveal-up,
   .reveal-down,
@@ -154,6 +163,17 @@
   .no-scrollbar {
     scrollbar-width: none;
   }
+}
+
+/* Pause idle drift animations on off-screen sections (data-active toggled by
+   useActiveSection). Only the in-view section animates; saves ~6/7 of the idle
+   animation load. Targets idle loops only — reveal entrances are CSS transitions
+   on .reveal-*, untouched, so they still fire on scroll-in. */
+[data-section][data-active='false'] .animate-sway,
+[data-section][data-active='false'] .animate-swayslow,
+[data-section][data-active='false'] .animate-float,
+[data-section][data-active='false'] .animate-drift {
+  animation-play-state: paused;
 }
 
 /* 3D card-turn between sections: as a section moves off-centre (--p → ±1) it

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { Content, Layer, Section, SectionLabel } from '../components';
 import { revealStyle } from '../constants';
 
@@ -56,7 +56,7 @@ function ConfettiBurst() {
   );
 }
 
-export function RsvpSection() {
+export const RsvpSection = memo(function RsvpSection() {
   const [name, setName] = useState('');
   const [attend, setAttend] = useState<'yes' | 'no' | null>(null);
   const [sent, setSent] = useState(false);
@@ -139,4 +139,4 @@ export function RsvpSection() {
       </Content>
     </Section>
   );
-}
+});

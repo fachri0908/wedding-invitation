@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Content, Layer, Section, SectionLabel } from '../components';
 import { revealStyle } from '../constants';
 
@@ -7,7 +8,7 @@ const STORY_ITEMS = [
   { y: '2025', t: 'The Proposal', d: 'Under snowfall, the answer was yes.' },
 ];
 
-export function StorySection() {
+export const StorySection = memo(function StorySection() {
   return (
     <Section id="story">
       <Layer depth={1.1} className="opacity-50">
@@ -37,4 +38,4 @@ export function StorySection() {
       </Content>
     </Section>
   );
-}
+});

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Content, Layer, Section, SectionLabel } from '../components';
 import { COUPLE, revealStyle } from '../constants';
 
@@ -23,7 +24,7 @@ function PersonCard({
   );
 }
 
-export function CoupleSection() {
+export const CoupleSection = memo(function CoupleSection() {
   return (
     <Section id="couple">
       <Layer depth={1.2} className="opacity-40">
@@ -53,4 +54,4 @@ export function CoupleSection() {
       </Content>
     </Section>
   );
-}
+});

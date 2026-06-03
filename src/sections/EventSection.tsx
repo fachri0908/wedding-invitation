@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Content, Layer, Section, SectionLabel } from '../components';
 import { COUPLE, revealStyle } from '../constants';
 import { useCountdown } from '../hooks';
@@ -59,7 +60,7 @@ function EventCard({
   );
 }
 
-export function EventSection() {
+export const EventSection = memo(function EventSection() {
   return (
     <Section id="event">
       <Layer depth={1.3} className="opacity-60">
@@ -95,4 +96,4 @@ export function EventSection() {
       </Content>
     </Section>
   );
-}
+});

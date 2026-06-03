@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {
   Content,
   Layer,
@@ -8,7 +9,7 @@ import {
 } from '../components';
 import { COUPLE, revealStyle } from '../constants';
 
-export function ClosingSection({ onRestart }: { onRestart: () => void }) {
+export const ClosingSection = memo(function ClosingSection({ onRestart }: { onRestart: () => void }) {
   return (
     <Section id="closing">
       <Layer depth={1.3} className="opacity-50">
@@ -57,4 +58,4 @@ export function ClosingSection({ onRestart }: { onRestart: () => void }) {
       </Content>
     </Section>
   );
-}
+});

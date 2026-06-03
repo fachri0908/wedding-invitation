@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {
   Content,
   Layer,
@@ -10,7 +11,7 @@ import {
 } from '../components';
 import { COUPLE, revealStyle } from '../constants';
 
-export function HeroSection() {
+export const HeroSection = memo(function HeroSection() {
   return (
     <Section id="hero">
       <Layer depth={1.4} className="opacity-70">
@@ -63,4 +64,4 @@ export function HeroSection() {
       </Content>
     </Section>
   );
-}
+});

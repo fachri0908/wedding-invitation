@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import { Content, Layer, Section, SectionLabel } from '../components';
 import { revealStyle } from '../constants';
 
 const TILE_COUNT = 6;
 
-export function GallerySection() {
+export const GallerySection = memo(function GallerySection() {
   return (
     <Section id="gallery">
       <Layer depth={1.2} className="opacity-40">
@@ -46,4 +47,4 @@ export function GallerySection() {
       </Content>
     </Section>
   );
-}
+});

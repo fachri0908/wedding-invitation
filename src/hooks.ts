@@ -213,9 +213,14 @@ export function useActiveSection(
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (e.isIntersecting && e.intersectionRatio > 0.55) {
-            setActive(e.target.id);
-          }
+          const on = e.isIntersecting && e.intersectionRatio > 0.55;
+          // DOM-attribute gate (outside React render) so CSS can pause idle
+          // animations on off-screen sections — see [data-active] rule in index.css
+          (e.target as HTMLElement).setAttribute(
+            'data-active',
+            on ? 'true' : 'false',
+          );
+          if (on) setActive(e.target.id);
         });
       },
       { root: scroller, threshold: [0.55, 0.75] },

@@ -1,6 +1,7 @@
 import {
   CSSProperties,
   ReactNode,
+  memo,
   useContext,
   useMemo,
   useRef,
@@ -67,7 +68,7 @@ const SECTION_DECOR: Record<string, Decoration[]> = {
   ],
 };
 
-export function Section({
+export const Section = memo(function Section({
   id,
   className = '',
   frame = true,
@@ -92,9 +93,9 @@ export function Section({
       {children}
     </section>
   );
-}
+});
 
-export function Layer({
+export const Layer = memo(function Layer({
   depth = 0,
   className = '',
   children,
@@ -118,7 +119,7 @@ export function Layer({
       {children}
     </div>
   );
-}
+});
 
 export function Content({
   children,
@@ -531,7 +532,11 @@ export type Decoration = {
   delay?: number;
 };
 
-export function SectionDecor({ items }: { items: Decoration[] }) {
+export const SectionDecor = memo(function SectionDecor({
+  items,
+}: {
+  items: Decoration[];
+}) {
   return (
     <div
       aria-hidden
@@ -559,7 +564,7 @@ export function SectionDecor({ items }: { items: Decoration[] }) {
       ))}
     </div>
   );
-}
+});
 
 export function OrnamentDivider({ width = 220 }: { width?: number }) {
   return (
@@ -698,15 +703,47 @@ const idOf = (s: string) => s.replace(/[^a-z0-9]/gi, '');
 
 // A single realistic flower: teardrop petals with a white→colour→tip gradient
 // (so the centre looks lit and the rim saturated) around a stamen cluster.
-export function Floret({
+// The five petal colours used everywhere; each gets one shared gradient (below)
+// instead of every Floret declaring its own <defs> (was ~100 dup gradients).
+const PETALS = ['#1BB7A6', '#5FDDCB', '#A6F0E6', '#FFFFFF', '#0B7A75'];
+const floretFill = (petal: string) => `url(#flo-${petal.replace('#', '')})`;
+
+// Mounted once (in ContinuousBackground) — the shared petal gradients.
+export function FloretGradients() {
+  return (
+    <svg
+      aria-hidden
+      width="0"
+      height="0"
+      style={{ position: 'absolute', width: 0, height: 0 }}
+    >
+      <defs>
+        {PETALS.map((petal) => (
+          <linearGradient
+            key={petal}
+            id={`flo-${petal.replace('#', '')}`}
+            x1="0"
+            y1="1"
+            x2="0"
+            y2="0"
+          >
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.92" />
+            <stop offset="42%" stopColor={petal} />
+            <stop offset="100%" stopColor={edgeOf(petal)} />
+          </linearGradient>
+        ))}
+      </defs>
+    </svg>
+  );
+}
+
+export const Floret = memo(function Floret({
   cx,
   cy,
   r,
   petal,
-  edge,
   core = '#A6F0E6',
   petals = 6,
-  id,
 }: {
   cx: number;
   cy: number;
@@ -715,26 +752,19 @@ export function Floret({
   edge?: string;
   core?: string;
   petals?: number;
-  id: string;
+  id?: string;
 }) {
   const L = r;
   const W = r * 0.44;
   const path = `M0 0 C ${-W} ${-L * 0.45} ${-W * 0.55} ${-L} 0 ${-L} C ${W * 0.55} ${-L} ${W} ${-L * 0.45} 0 0 Z`;
-  const tip = edge ?? edgeOf(petal);
+  const fill = floretFill(petal);
   return (
     <g transform={`translate(${cx} ${cy})`}>
-      <defs>
-        <linearGradient id={id} x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.92" />
-          <stop offset="42%" stopColor={petal} />
-          <stop offset="100%" stopColor={tip} />
-        </linearGradient>
-      </defs>
       {Array.from({ length: petals }).map((_, i) => (
         <path
           key={i}
           d={path}
-          fill={`url(#${id})`}
+          fill={fill}
           transform={`rotate(${(i / petals) * 360})`}
           opacity="0.96"
         />
@@ -754,7 +784,7 @@ export function Floret({
       })}
     </g>
   );
-}
+});
 
 // Broadleaf / blossom tree — brown trunk with a rounded colourful canopy and
 // scattered blossom flecks. The canopy colour is what makes the grove colourful.
@@ -1158,9 +1188,10 @@ function BokehLights() {
   );
 }
 
-export function ContinuousBackground() {
+export const ContinuousBackground = memo(function ContinuousBackground() {
   return (
     <>
+      <FloretGradients />
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 z-[-40] bg-[linear-gradient(180deg,#F2F7F6_0%,#E3F3F0_18%,#A6F0E6_36%,#5FDDCB_55%,#1BB7A6_72%,#5FDDCB_88%,#E3F3F0_100%)]"
@@ -1189,7 +1220,7 @@ export function ContinuousBackground() {
       />
     </>
   );
-}
+});
 
 // ───── opening gate ─────────────────────────────────────────────────────
 
@@ -1401,7 +1432,7 @@ export function SparkleTrail() {
 
 // ───── nav ──────────────────────────────────────────────────────────────
 
-export function Nav({
+export const Nav = memo(function Nav({
   active,
   sections,
   onGo,
@@ -1435,4 +1466,4 @@ export function Nav({
       </ul>
     </nav>
   );
-}
+});
