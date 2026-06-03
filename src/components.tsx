@@ -1231,16 +1231,16 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
   const start = () => {
     if (state !== 'idle') return;
     setState('opening');
-    // reveal the page behind once the letter is out, then dismiss the gate
-    window.setTimeout(onOpen, 1500);
-    window.setTimeout(() => setState('closed'), 2300);
+    // sequence: flap opens (0–900ms) → letter rises (900–2300ms) → reveal + fade
+    window.setTimeout(onOpen, 2300);
+    window.setTimeout(() => setState('closed'), 3100);
   };
   return (
     <div
       className={`fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[linear-gradient(180deg,#F2F7F6_0%,#A6F0E6_50%,#1BB7A6_100%)] ${
         opening ? 'pointer-events-none animate-envFade' : ''
       }`}
-      style={opening ? { animationDelay: '1500ms' } : undefined}
+      style={opening ? { animationDelay: '2300ms' } : undefined}
     >
       <div className="pointer-events-none absolute inset-0">
         <Snowflake left="12%" size={4} delay={0} />
@@ -1267,7 +1267,7 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
           }}
         />
 
-        {/* letter card — rises out of the envelope */}
+        {/* letter card — rises out AFTER the flap has opened */}
         <div
           className={opening ? 'animate-letterRise' : ''}
           style={{
@@ -1276,6 +1276,7 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
             right: 18,
             top: 16,
             zIndex: 2,
+            animationDelay: opening ? '900ms' : undefined,
             borderRadius: 12,
             padding: '18px 16px',
             background:
