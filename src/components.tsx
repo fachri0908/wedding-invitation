@@ -1,8 +1,6 @@
 import {
   CSSProperties,
   ReactNode,
-  Suspense,
-  lazy,
   useContext,
   useMemo,
   useRef,
@@ -11,15 +9,9 @@ import {
 import { COUPLE } from './constants';
 import { RevealContext } from './RevealContext';
 
-const CrystalTransition = lazy(() =>
-  import('./three/CrystalTransition').then((m) => ({
-    default: m.CrystalTransition,
-  })),
-);
-
 // Coarse-pointer / small screens get a lighter background (fewer flowers, blurs
 // and trees) so scrolling stays smooth on phones.
-const LITE =
+export const LITE =
   typeof window !== 'undefined' &&
   ((typeof window.matchMedia === 'function' &&
     window.matchMedia('(pointer: coarse)').matches) ||
@@ -706,7 +698,7 @@ const idOf = (s: string) => s.replace(/[^a-z0-9]/gi, '');
 
 // A single realistic flower: teardrop petals with a white→colour→tip gradient
 // (so the centre looks lit and the rim saturated) around a stamen cluster.
-function Floret({
+export function Floret({
   cx,
   cy,
   r,
@@ -1202,64 +1194,146 @@ export function ContinuousBackground() {
 // ───── opening gate ─────────────────────────────────────────────────────
 
 export function OpeningGate({ onOpen }: { onOpen: () => void }) {
-  const [state, setState] = useState<'idle' | 'breaking' | 'closed'>('idle');
+  const [state, setState] = useState<'idle' | 'opening' | 'closed'>('idle');
   if (state === 'closed') return null;
+  const opening = state !== 'idle';
   const start = () => {
     if (state !== 'idle') return;
-    setState('breaking');
-    onOpen();
+    setState('opening');
+    // reveal the page behind once the letter is out, then dismiss the gate
+    window.setTimeout(onOpen, 1500);
+    window.setTimeout(() => setState('closed'), 2300);
   };
-  const breaking = state === 'breaking';
   return (
-    <>
+    <div
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[linear-gradient(180deg,#F2F7F6_0%,#A6F0E6_50%,#1BB7A6_100%)] ${
+        opening ? 'pointer-events-none animate-envFade' : ''
+      }`}
+      style={opening ? { animationDelay: '1500ms' } : undefined}
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <Snowflake left="12%" size={4} delay={0} />
+        <Snowflake left="32%" size={6} delay={1.2} />
+        <Snowflake left="54%" size={5} delay={0.7} />
+        <Snowflake left="76%" size={4} delay={1.9} />
+        <Snowflake left="90%" size={6} delay={0.3} />
+      </div>
+
+      <p className="font-body text-[10px] uppercase tracking-[0.5em] text-ice-800">
+        You are cordially invited
+      </p>
+
+      {/* ───── envelope ───── */}
       <div
-        className={`fixed inset-0 z-[100] flex items-center justify-center bg-[linear-gradient(180deg,#F2F7F6_0%,#A6F0E6_50%,#1BB7A6_100%)] transition-opacity duration-[1200ms] ${
-          breaking ? 'pointer-events-none opacity-0' : 'opacity-100'
-        }`}
+        className="relative mt-8"
+        style={{ width: 300, height: 200, perspective: '1100px' }}
       >
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <Snowflake left="12%" size={4} delay={0} />
-          <Snowflake left="28%" size={6} delay={1.2} />
-          <Snowflake left="48%" size={5} delay={0.7} />
-          <Snowflake left="68%" size={4} delay={1.9} />
-          <Snowflake left="86%" size={6} delay={0.3} />
+        {/* back panel */}
+        <div
+          className="absolute inset-0 rounded-lg shadow-ice"
+          style={{
+            background: 'linear-gradient(160deg, #0C6E54 0%, #0A5A56 100%)',
+          }}
+        />
+
+        {/* letter card — rises out of the envelope */}
+        <div
+          className={opening ? 'animate-letterRise' : ''}
+          style={{
+            position: 'absolute',
+            left: 18,
+            right: 18,
+            top: 16,
+            zIndex: 2,
+            borderRadius: 12,
+            padding: '18px 16px',
+            background:
+              'linear-gradient(155deg, #FFFFFF 0%, #F2F7F6 60%, #E3F3F0 100%)',
+            boxShadow: '0 14px 30px -12px rgba(6,42,59,0.5)',
+          }}
+        >
+          <div className="flex flex-col items-center text-center">
+            <Monogram size={62} />
+            <p className="mt-2 font-script text-3xl leading-none text-ice-800">
+              {COUPLE.bride} &amp; {COUPLE.groom}
+            </p>
+            <div className="mt-1">
+              <OrnamentDivider width={150} />
+            </div>
+            <p className="mt-1 font-display text-[11px] tracking-[0.35em] text-ice-700">
+              {COUPLE.dateShort}
+            </p>
+            <p className="text-[9px] tracking-[0.3em] text-ice-700/80">
+              {COUPLE.location}
+            </p>
+          </div>
         </div>
 
-        <div className="relative flex flex-col items-center px-8 text-center">
-          <p className="font-body text-[10px] uppercase tracking-[0.5em] text-ice-700">
-            You are cordially invited
-          </p>
-          <div className="mt-6 animate-sealIdle">
-            <Monogram size={150} animated />
-          </div>
-          <p className="mt-6 font-script text-5xl leading-none text-ice-800">
-            {COUPLE.bride} & {COUPLE.groom}
-          </p>
-          <div className="mt-4">
-            <OrnamentDivider width={200} />
-          </div>
-          <p className="mt-4 font-display text-sm tracking-[0.4em] text-ice-700">
-            {COUPLE.dateShort}
-          </p>
-          <p className="mt-1 text-[11px] tracking-[0.3em] text-ice-700/80">
-            {COUPLE.location}
-          </p>
-          <button
-            onClick={start}
-            disabled={breaking}
-            className="group relative mt-12 overflow-hidden rounded-full bg-ice-800 px-10 py-3.5 font-body text-xs uppercase tracking-[0.4em] text-white shadow-ice transition-all active:scale-95 hover:bg-ice-900 disabled:opacity-60"
+        {/* envelope front pocket (covers the letter's lower half) */}
+        <div
+          className="absolute inset-x-0 bottom-0 rounded-b-lg"
+          style={{
+            top: '46%',
+            zIndex: 3,
+            background: 'linear-gradient(160deg, #0F8A63 0%, #0B7A75 100%)',
+            clipPath: 'polygon(0 38%, 50% 100%, 100% 38%, 100% 100%, 0 100%)',
+          }}
+        />
+        {/* side body fill so the V reads cleanly */}
+        <div
+          className="absolute inset-0 rounded-lg"
+          style={{
+            zIndex: 1,
+            background: 'linear-gradient(160deg, #0C6E54 0%, #0A5A56 100%)',
+            clipPath: 'polygon(0 0, 0 100%, 50% 56%, 100% 100%, 100% 0)',
+          }}
+        />
+
+        {/* top flap — swings open */}
+        <div
+          className={opening ? 'animate-flapOpen' : ''}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '56%',
+            zIndex: 4,
+            transformOrigin: 'top center',
+            transformStyle: 'preserve-3d',
+            backfaceVisibility: 'hidden',
+            background: 'linear-gradient(165deg, #129E8F 0%, #0F8A63 100%)',
+            clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+            borderBottom: '1px solid rgba(255,255,255,0.15)',
+          }}
+        >
+          {/* wax seal */}
+          <div
+            className="absolute left-1/2 flex h-9 w-9 -translate-x-1/2 items-center justify-center rounded-full"
+            style={{
+              top: '34%',
+              background:
+                'radial-gradient(circle at 35% 30%, #A6F0E6 0%, #1BB7A6 55%, #0B7A75 100%)',
+              boxShadow: '0 2px 6px rgba(6,42,59,0.4)',
+            }}
           >
-            <span className="relative z-10">Open Invitation</span>
-            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
-          </button>
+            <span className="font-script text-sm text-ice-900">
+              {COUPLE.brideInitial}
+              {COUPLE.groomInitial}
+            </span>
+          </div>
         </div>
       </div>
-      {breaking && (
-        <Suspense fallback={null}>
-          <CrystalTransition onDone={() => setState('closed')} />
-        </Suspense>
-      )}
-    </>
+
+      <button
+        onClick={start}
+        disabled={opening}
+        className="group relative mt-12 overflow-hidden rounded-full bg-ice-800 px-10 py-3.5 font-body text-xs uppercase tracking-[0.4em] text-white shadow-ice transition-all hover:bg-ice-900 active:scale-95 disabled:opacity-0"
+      >
+        <span className="relative z-10">Open Invitation</span>
+        <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
+      </button>
+    </div>
   );
 }
 

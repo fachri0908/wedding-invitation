@@ -161,6 +161,61 @@ module.exports = {
           '0%,100%': { opacity: '0.3', transform: 'scale(0.85)' },
           '50%': { opacity: '1', transform: 'scale(1.15)' },
         },
+        // origami bird flies across the screen along a gentle arc
+        birdCross: {
+          '0%': {
+            transform:
+              'translate3d(var(--bx0,-30vw), var(--by0,40vh), 0) rotate(var(--brot,8deg)) scale(var(--bs,1))',
+            opacity: '0',
+          },
+          '12%': { opacity: '1' },
+          '50%': {
+            transform:
+              'translate3d(50vw, var(--bymid,28vh), 0) rotate(var(--brot,8deg)) scale(var(--bs,1))',
+          },
+          '88%': { opacity: '1' },
+          '100%': {
+            transform:
+              'translate3d(var(--bx1,130vw), var(--by1,34vh), 0) rotate(var(--brot,8deg)) scale(var(--bs,1))',
+            opacity: '0',
+          },
+        },
+        // wing flap (scaleY pivot at the fold)
+        wingFlap: {
+          '0%,100%': { transform: 'scaleY(1)' },
+          '50%': { transform: 'scaleY(0.45)' },
+        },
+        // petal/leaf sweep one-shot across the viewport
+        sweepAcross: {
+          '0%': {
+            transform:
+              'translate3d(var(--sx0,-20vw), var(--sy0,0), 0) rotate(0deg)',
+            opacity: '0',
+          },
+          '15%': { opacity: '1' },
+          '85%': { opacity: '1' },
+          '100%': {
+            transform:
+              'translate3d(var(--sx1,120vw), var(--sy1,0), 0) rotate(var(--srot,300deg))',
+            opacity: '0',
+          },
+        },
+        // envelope top flap swinging open
+        flapOpen: {
+          '0%': { transform: 'rotateX(0deg)' },
+          '100%': { transform: 'rotateX(-176deg)' },
+        },
+        // the letter card rising out of the envelope
+        letterRise: {
+          '0%': { transform: 'translateY(28%) scale(0.92)', opacity: '0.6' },
+          '55%': { transform: 'translateY(-46%) scale(1)', opacity: '1' },
+          '100%': { transform: 'translateY(-46%) scale(1)', opacity: '1' },
+        },
+        // whole envelope settling/fading as we reveal the page
+        envFade: {
+          '0%': { transform: 'scale(1)', opacity: '1' },
+          '100%': { transform: 'scale(1.12)', opacity: '0' },
+        },
       },
       animation: {
         float: 'float 6s ease-in-out infinite',
@@ -184,6 +239,12 @@ module.exports = {
         petalBurst: 'petalBurst 1600ms cubic-bezier(0.22,1,0.36,1) forwards',
         sparkle: 'sparkle 900ms ease-out forwards',
         twinkle: 'twinkle 2.2s ease-in-out infinite',
+        birdCross: 'birdCross 1900ms cubic-bezier(0.4,0,0.2,1) forwards',
+        wingFlap: 'wingFlap 260ms ease-in-out infinite',
+        sweepAcross: 'sweepAcross 1500ms cubic-bezier(0.36,0,0.2,1) forwards',
+        flapOpen: 'flapOpen 900ms cubic-bezier(0.5,0,0.2,1) forwards',
+        letterRise: 'letterRise 1400ms cubic-bezier(0.22,1,0.36,1) forwards',
+        envFade: 'envFade 700ms ease-in forwards',
       },
     },
   },

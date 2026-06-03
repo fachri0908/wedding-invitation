@@ -155,3 +155,15 @@
     scrollbar-width: none;
   }
 }
+
+/* 3D card-turn between sections: as a section moves off-centre (--p → ±1) it
+   tilts and recedes like a turning page. Pointer-fine (desktop) only and
+   disabled under reduced-motion, so phones keep the cheap flat scroll. */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-section] {
+    transform: rotateX(calc(var(--p, 0) * 7deg))
+      scale(calc(1 - var(--p, 0) * var(--p, 0) * 0.05));
+    transform-origin: center center;
+    will-change: transform;
+  }
+}

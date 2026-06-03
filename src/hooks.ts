@@ -8,8 +8,11 @@ function easeInOutCubic(t: number) {
 export function useSmoothSnapScroll(
   ref: RefObject<HTMLElement | null>,
   enabled: boolean,
+  onChange?: (dir: 1 | -1, to: number) => void,
 ) {
   const goRef = useRef<(i: number) => void>(() => {});
+  const cbRef = useRef(onChange);
+  cbRef.current = onChange;
 
   useEffect(() => {
     const el = ref.current;
@@ -56,6 +59,10 @@ export function useSmoothSnapScroll(
     const goToIndex = (i: number) => {
       const secs = getSections();
       const clamped = Math.max(0, Math.min(secs.length - 1, i));
+      const from = currentIndex();
+      if (clamped !== from) {
+        cbRef.current?.(clamped > from ? 1 : -1, clamped);
+      }
       tweenTo(secs[clamped].offsetTop);
     };
 

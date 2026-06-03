@@ -1,5 +1,6 @@
 import { CSSProperties, useRef, useState } from 'react';
 import { ContinuousBackground, Nav, OpeningGate } from './components';
+import { SectionTransition, Trigger } from './transitions';
 import { SECTIONS, SectionId } from './constants';
 import {
   useActiveSection,
@@ -19,8 +20,17 @@ import { ClosingSection } from './sections/ClosingSection';
 export default function App() {
   const scrollerRef = useRef<HTMLElement>(null);
   const [opened, setOpened] = useState(false);
+  const [trans, setTrans] = useState<Trigger>(null);
+  const transCount = useRef(0);
   useParallax(scrollerRef);
-  const goRef = useSmoothSnapScroll(scrollerRef, opened);
+  const goRef = useSmoothSnapScroll(scrollerRef, opened, (dir) => {
+    transCount.current += 1;
+    setTrans({
+      key: transCount.current,
+      dir,
+      kind: transCount.current % 2 ? 'birds' : 'petals',
+    });
+  });
   const active = useActiveSection(scrollerRef, SECTIONS);
   const revealed = useRevealed(scrollerRef, SECTIONS, opened);
 
@@ -33,6 +43,7 @@ export default function App() {
     <>
       <ContinuousBackground />
       {!opened ? <OpeningGate onOpen={() => setOpened(true)} /> : null}
+      <SectionTransition trigger={trans} />
       <Nav active={active} sections={SECTIONS} onGo={go} visible={opened} />
       <RevealContext.Provider value={revealed}>
         <main
