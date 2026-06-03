@@ -84,6 +84,9 @@ export function useSmoothSnapScroll(
       touchActive = true;
     };
     const onTouchMove = (e: TouchEvent) => {
+      // Drive snapping ourselves and suppress native scroll so the browser's
+      // momentum doesn't fight the tween (the source of the glitchy feel).
+      e.preventDefault();
       if (!touchActive || animating) return;
       const dy = touchStartY - e.touches[0].clientY;
       if (Math.abs(dy) > 40) {
@@ -115,7 +118,7 @@ export function useSmoothSnapScroll(
 
     el.addEventListener('wheel', onWheel, { passive: false });
     el.addEventListener('touchstart', onTouchStart, { passive: true });
-    el.addEventListener('touchmove', onTouchMove, { passive: true });
+    el.addEventListener('touchmove', onTouchMove, { passive: false });
     el.addEventListener('touchend', onTouchEnd, { passive: true });
     window.addEventListener('keydown', onKey);
 
@@ -137,20 +140,38 @@ export function useParallax(ref: RefObject<HTMLElement | null>) {
     const scroller = ref.current;
     if (!scroller) return;
     let ticking = false;
+
+    // Measure section offsets ONCE (and on resize) so the per-frame scroll
+    // handler never calls getBoundingClientRect — no forced reflow while
+    // scrolling, which is what made touch-scroll janky on phones.
+    type Slot = { el: HTMLElement; top: number; h: number; last: string };
+    let slots: Slot[] = [];
+    let lastSp = '';
+    const measure = () => {
+      slots = Array.from(
+        scroller.querySelectorAll<HTMLElement>('[data-section]'),
+      ).map((el) => ({ el, top: el.offsetTop, h: el.clientHeight, last: '' }));
+    };
+
     const update = () => {
-      const sections = scroller.querySelectorAll<HTMLElement>('[data-section]');
-      const sRect = scroller.getBoundingClientRect();
+      const scrollTop = scroller.scrollTop;
       const vh = scroller.clientHeight;
-      sections.forEach((s) => {
-        const rect = s.getBoundingClientRect();
-        const center = rect.top - sRect.top + rect.height / 2;
+      for (const s of slots) {
+        const center = s.top - scrollTop + s.h / 2;
         const p = (center - vh / 2) / (vh / 2);
         const clamped = Math.max(-1.2, Math.min(1.2, p));
-        s.style.setProperty('--p', clamped.toFixed(3));
-      });
-      const totalScroll = scroller.scrollHeight - scroller.clientHeight;
-      const sp = totalScroll > 0 ? scroller.scrollTop / totalScroll : 0;
-      document.documentElement.style.setProperty('--scroll', sp.toFixed(4));
+        const v = clamped.toFixed(3);
+        if (v !== s.last) {
+          s.el.style.setProperty('--p', v);
+          s.last = v;
+        }
+      }
+      const totalScroll = scroller.scrollHeight - vh;
+      const sp = (totalScroll > 0 ? scrollTop / totalScroll : 0).toFixed(4);
+      if (sp !== lastSp) {
+        document.documentElement.style.setProperty('--scroll', sp);
+        lastSp = sp;
+      }
       ticking = false;
     };
     const onScroll = () => {
@@ -159,12 +180,17 @@ export function useParallax(ref: RefObject<HTMLElement | null>) {
         requestAnimationFrame(update);
       }
     };
+    const onResize = () => {
+      measure();
+      update();
+    };
     scroller.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', update);
+    window.addEventListener('resize', onResize);
+    measure();
     update();
     return () => {
       scroller.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', update);
+      window.removeEventListener('resize', onResize);
     };
   }, [ref]);
 }

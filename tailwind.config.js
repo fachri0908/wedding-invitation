@@ -4,19 +4,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // teal / navy scale derived from the supplied palette
+        // (#062A3B #0B7A75 #1BB7A6 #A6F0E6 #F2F7F6), kept under the `ice` key so
+        // every existing `*-ice-*` class recolours at once
         ice: {
-          50: '#F5FBFD',
-          100: '#E6F4FA',
-          200: '#CCE9F5',
-          300: '#A8D8EA',
-          400: '#7CC3DC',
-          500: '#4FAECF',
-          600: '#3B8FAE',
-          700: '#2C6E88',
-          800: '#1E4E62',
-          900: '#112D3A',
+          50: '#F2F7F6',
+          100: '#E3F3F0',
+          200: '#A6F0E6',
+          300: '#5FDDCB',
+          400: '#1BB7A6',
+          500: '#129E8F',
+          600: '#0B7A75',
+          700: '#0A5A56',
+          800: '#062A3B',
+          900: '#041A26',
         },
-        frost: '#EAF6FB',
+        frost: '#EAF6F3',
       },
       fontFamily: {
         display: ['"Cormorant Garamond"', 'ui-serif', 'serif'],
@@ -24,12 +27,12 @@ module.exports = {
         script: ['"Great Vibes"', 'cursive'],
       },
       boxShadow: {
-        glass: '0 8px 32px 0 rgba(31, 80, 120, 0.18)',
-        ice: '0 10px 30px -10px rgba(79, 174, 207, 0.55)',
+        glass: '0 8px 32px 0 rgba(6, 42, 59, 0.18)',
+        ice: '0 10px 30px -10px rgba(27, 183, 166, 0.55)',
       },
       backgroundImage: {
         'ice-radial':
-          'radial-gradient(ellipse at top, #E6F4FA 0%, #A8D8EA 55%, #4FAECF 100%)',
+          'radial-gradient(ellipse at top, #E3F3F0 0%, #5FDDCB 55%, #1BB7A6 100%)',
       },
       keyframes: {
         float: {

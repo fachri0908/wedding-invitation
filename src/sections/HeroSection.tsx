@@ -14,7 +14,7 @@ export function HeroSection() {
   return (
     <Section id="hero">
       <Layer depth={1.4} className="opacity-70">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,#fff_0%,transparent_45%),radial-gradient(circle_at_80%_70%,#CCE9F5_0%,transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,#fff_0%,transparent_45%),radial-gradient(circle_at_80%_70%,#A6F0E6_0%,transparent_55%)]" />
       </Layer>
       <Layer depth={0.9}>
         <Snowflake left="12%" delay={0} size={6} />

@@ -38,16 +38,16 @@ function ConfettiBurst() {
         >
           {it.kind === 'flower' ? (
             <g>
-              <circle cx="12" cy="6" r="4" fill="#A8D8EA" />
-              <circle cx="6" cy="12" r="4" fill="#7CC3DC" />
-              <circle cx="18" cy="12" r="4" fill="#7CC3DC" />
-              <circle cx="12" cy="18" r="4" fill="#A8D8EA" />
-              <circle cx="12" cy="12" r="3" fill="#fff" />
+              <circle cx="12" cy="6" r="4" fill="#1BB7A6" />
+              <circle cx="6" cy="12" r="4" fill="#1BB7A6" opacity="0.85" />
+              <circle cx="18" cy="12" r="4" fill="#1BB7A6" opacity="0.85" />
+              <circle cx="12" cy="18" r="4" fill="#1BB7A6" />
+              <circle cx="12" cy="12" r="3" fill="#A6F0E6" />
             </g>
           ) : (
             <path
               d="M2 12 C2 4, 22 4, 22 12 C22 20, 2 20, 2 12 Z"
-              fill="#4FAECF"
+              fill="#129E8F"
             />
           )}
         </svg>
