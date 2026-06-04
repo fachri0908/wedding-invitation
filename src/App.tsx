@@ -1,5 +1,5 @@
 import { CSSProperties, useCallback, useRef, useState } from 'react';
-import { ContinuousBackground, Nav, OpeningGate } from './components';
+import { ContinuousBackground, CornerDecor, Nav, OpeningGate } from './components';
 import { SectionTransition, Trigger } from './transitions';
 import { SECTIONS, SectionId } from './constants';
 import {
@@ -13,8 +13,8 @@ import { HeroSection } from './sections/HeroSection';
 import { CoupleSection } from './sections/CoupleSection';
 import { StorySection } from './sections/StorySection';
 import { EventSection } from './sections/EventSection';
-import { GallerySection } from './sections/GallerySection';
 import { RsvpSection } from './sections/RsvpSection';
+import { GiftSection } from './sections/GiftSection';
 import { ClosingSection } from './sections/ClosingSection';
 
 export default function App() {
@@ -47,6 +47,7 @@ export default function App() {
       <ContinuousBackground />
       {!opened ? <OpeningGate onOpen={handleOpen} /> : null}
       <SectionTransition trigger={trans} />
+      {opened && <CornerDecor />}
       <Nav active={active} sections={SECTIONS} onGo={go} visible={opened} />
       <RevealContext.Provider value={revealed}>
         <main
@@ -63,8 +64,8 @@ export default function App() {
           <CoupleSection />
           <StorySection />
           <EventSection />
-          <GallerySection />
           <RsvpSection />
+          <GiftSection />
           <ClosingSection onRestart={handleRestart} />
         </main>
       </RevealContext.Provider>

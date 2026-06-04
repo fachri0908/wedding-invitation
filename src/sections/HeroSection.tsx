@@ -4,7 +4,7 @@ import {
   Layer,
   Monogram,
   OrnamentDivider,
-  ScrollCue,
+  // ScrollCue,
   Section,
   Snowflake,
   SparkleTrail,
@@ -16,6 +16,16 @@ export const HeroSection = memo(function HeroSection() {
     <Section id="hero">
       <Layer depth={1.4} className="opacity-70">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,#fff_0%,transparent_45%),radial-gradient(circle_at_80%_70%,#A6F0E6_0%,transparent_55%)]" />
+      </Layer>
+      <Layer depth={1.1} className="opacity-25">
+        <img
+          src={`${process.env.PUBLIC_URL}/blue2.png`}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          decoding="async"
+          className="h-[48vh] w-auto max-w-none object-contain"
+        />
       </Layer>
       <Layer depth={0.9}>
         <Snowflake left="12%" delay={0} size={6} />
@@ -58,9 +68,9 @@ export const HeroSection = memo(function HeroSection() {
         >
           {COUPLE.location}
         </p>
-        <div className="reveal-up mt-10" style={revealStyle(1100)}>
+        {/* <div className="reveal-up mt-10" style={revealStyle(1100)}>
           <ScrollCue />
-        </div>
+        </div> */}
       </Content>
     </Section>
   );

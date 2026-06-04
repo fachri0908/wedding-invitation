@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Content, Layer, Section, SectionLabel } from '../components';
+import { CardFlora, Content, Layer, Section, SectionLabel } from '../components';
 import { COUPLE, revealStyle } from '../constants';
 import { useCountdown } from '../hooks';
 
@@ -41,21 +41,44 @@ function EventCard({
   title,
   time,
   place,
+  flora,
+  floraRotate,
+  floraClassName = '',
+  mapUrl,
 }: {
   title: string;
   time: string;
   place: string;
+  flora: string;
+  floraRotate?: number;
+  floraClassName?: string;
+  mapUrl?: string;
 }) {
+  const href =
+    mapUrl ??
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`;
   return (
-    <div className="glass-card w-full rounded-3xl p-5">
-      <div className="flex items-center justify-between">
-        <div className="font-display text-2xl text-ice-800">{title}</div>
-        <span className="font-script text-2xl text-ice-400">❋</span>
-      </div>
-      <div className="mt-2 flex items-center justify-between text-sm text-ice-700">
+    <div className="glass-card relative w-full overflow-hidden rounded-3xl p-4">
+      <CardFlora
+        src={flora}
+        size={88}
+        op={0.2}
+        rotate={floraRotate}
+        className={`-right-5 -top-5 ${floraClassName}`}
+      />
+      <div className="relative font-display text-2xl text-ice-800">{title}</div>
+      <div className="relative mt-2 flex flex-col items-center justify-between text-sm text-ice-700">
         <span className="font-display italic">{time}</span>
         <span className="text-[11px] uppercase tracking-[0.3em]">{place}</span>
       </div>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="relative mt-3 inline-flex items-center gap-1.5 rounded-full bg-ice-700 px-5 py-2.5 font-body text-[10px] uppercase tracking-[0.3em] text-white shadow-ice transition-all active:scale-95 hover:bg-ice-800"
+      >
+        📍 Buka Peta
+      </a>
     </div>
   );
 }
@@ -76,23 +99,30 @@ export const EventSection = memo(function EventSection() {
         <div className="reveal-left w-full" style={revealStyle(480)}>
           <EventCard
             title="Akad Nikah"
-            time="10.00 WITA"
-            place="St. Glacier Chapel"
+            time="Sabtu, 4 Juli 2026, 13.00 WIB"
+            place="Kediaman Mempelai Wanita, Desa Gelombang"
+            flora="blue1"
+            floraClassName='rotate-180 mr-3 mt-3'
           />
         </div>
         <div className="reveal-right w-full" style={revealStyle(640)}>
           <EventCard
-            title="Resepsi"
-            time="18.00 WITA"
-            place="Glacier Pavilion Ballroom"
+            title="Resepsi 1"
+            time="Minggu, 5 Juli 2026, 10.00 WIB"
+            place="Kediaman Mempelai Wanita, Desa Gelombang"
+            flora="blue3"
+            floraClassName='rotate-180 mr-3 mt-3'
           />
         </div>
-        <button
-          className="reveal-zoom mt-2 rounded-full bg-ice-700 px-6 py-3 font-body text-xs uppercase tracking-[0.3em] text-white shadow-ice transition-transform active:scale-95 hover:bg-ice-800"
-          style={revealStyle(820)}
-        >
-          Buka Peta
-        </button>
+        <div className="reveal-right w-full" style={revealStyle(640)}>
+          <EventCard
+            title="Resepsi 2"
+            time="Senin, 6 Juli 2026, 10.00 WIB"
+            place="Kediaman Mempelai Pria, Bulaan, Kp Baru Padusunan"
+            flora="blue3"
+            floraClassName='rotate-180 mr-3 mt-3'
+          />
+        </div>
       </Content>
     </Section>
   );

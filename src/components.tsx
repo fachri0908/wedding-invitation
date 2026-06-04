@@ -20,67 +20,24 @@ export const LITE =
 
 // ───── primitives ───────────────────────────────────────────────────────
 
-// Per-section ornaments, scattered around the edge bands (clear of the centred
-// content) — each its own motif, position, entrance transition and idle drift.
-const SECTION_DECOR: Record<string, Decoration[]> = {
-  hero: [
-    { layers: [{ v: 'bloom' }], pos: { top: 0, left: 0 }, size: 116, flip: 'scale(1,1)', reveal: 'reveal-left', idle: 'animate-sway', delay: 200 },
-    { layers: [{ v: 'tulip' }], pos: { top: '4%', right: '3%' }, size: 80, flip: 'scale(-1,1)', reveal: 'reveal-right', idle: 'animate-sway', delay: 360 },
-    { layers: [{ v: 'pine' }], pos: { bottom: 0, left: '4%' }, size: 78, flip: 'scale(1,-1)', reveal: 'reveal-up', idle: 'animate-swayslow', delay: 520 },
-    { layers: [{ v: 'vine' }], pos: { bottom: 0, right: 0 }, size: 96, flip: 'scale(-1,-1)', reveal: 'reveal-down', idle: 'animate-sway', delay: 680 },
-  ],
-  couple: [
-    { layers: [{ v: 'rosette' }], pos: { top: '3%', left: '2%' }, size: 104, flip: 'scale(1,1)', reveal: 'reveal-scale', idle: 'animate-float', delay: 200 },
-    { layers: [{ v: 'vine' }], pos: { top: 0, right: 0 }, size: 96, flip: 'scale(-1,1)', reveal: 'reveal-tilt-r', idle: 'animate-swayslow', delay: 360 },
-    { layers: [{ v: 'berry' }], pos: { bottom: '2%', left: 0 }, size: 88, flip: 'scale(1,-1)', reveal: 'reveal-drop', idle: 'animate-sway', delay: 520 },
-    { layers: [{ v: 'bloom' }], pos: { bottom: 0, right: '3%' }, size: 92, flip: 'scale(-1,-1)', reveal: 'reveal-rotate', idle: 'animate-drift', delay: 680 },
-  ],
-  story: [
-    { layers: [{ v: 'pine' }], pos: { top: 0, left: 0 }, size: 100, flip: 'scale(1,1)', reveal: 'reveal-down', idle: 'animate-sway', delay: 200 },
-    { layers: [{ v: 'tulip' }], pos: { top: '2%', left: '50%' }, size: 64, flip: 'translateX(-50%)', reveal: 'reveal-drop', idle: 'animate-sway', delay: 360 },
-    { layers: [{ v: 'fern' }], pos: { bottom: 0, left: '3%' }, size: 92, flip: 'scale(1,-1)', reveal: 'reveal-left', idle: 'animate-swayslow', delay: 520 },
-    { layers: [{ v: 'berry' }], pos: { bottom: '3%', right: 0 }, size: 90, flip: 'scale(-1,-1)', reveal: 'reveal-right', idle: 'animate-drift', delay: 680 },
-  ],
-  event: [
-    { layers: [{ v: 'tulip' }], pos: { top: 0, left: 0 }, size: 104, flip: 'scale(1,1)', reveal: 'reveal-zoom', idle: 'animate-sway', delay: 200 },
-    { layers: [{ v: 'fern' }], pos: { top: '4%', right: '2%' }, size: 92, flip: 'scale(-1,1)', reveal: 'reveal-tilt-l', idle: 'animate-swayslow', delay: 360 },
-    { layers: [{ v: 'rosette' }], pos: { bottom: 0, left: 0 }, size: 86, flip: 'scale(1,-1)', reveal: 'reveal-scale', idle: 'animate-float', delay: 520 },
-    { layers: [{ v: 'tulip' }], pos: { bottom: '3%', right: '3%' }, size: 72, flip: 'scale(-1,-1)', reveal: 'reveal-rotate', idle: 'animate-sway', delay: 680 },
-  ],
-  gallery: [
-    { layers: [{ v: 'berry' }], pos: { top: '2%', left: '2%' }, size: 100, flip: 'scale(1,1)', reveal: 'reveal-left', idle: 'animate-drift', delay: 200 },
-    { layers: [{ v: 'bloom' }], pos: { top: 0, right: 0 }, size: 94, flip: 'scale(-1,1)', reveal: 'reveal-right', idle: 'animate-sway', delay: 360 },
-    { layers: [{ v: 'vine' }], pos: { bottom: 0, left: 0 }, size: 92, flip: 'scale(1,-1)', reveal: 'reveal-up', idle: 'animate-swayslow', delay: 520 },
-    { layers: [{ v: 'fern' }], pos: { bottom: '2%', right: '2%' }, size: 92, flip: 'scale(-1,-1)', reveal: 'reveal-blur', idle: 'animate-drift', delay: 680 },
-  ],
-  rsvp: [
-    { layers: [{ v: 'fern' }], pos: { top: 0, left: 0 }, size: 100, flip: 'scale(1,1)', reveal: 'reveal-tilt-l', idle: 'animate-swayslow', delay: 200 },
-    { layers: [{ v: 'vine' }], pos: { top: '3%', right: 0 }, size: 92, flip: 'scale(-1,1)', reveal: 'reveal-tilt-r', idle: 'animate-sway', delay: 360 },
-    { layers: [{ v: 'rosette' }], pos: { bottom: '2%', left: '3%' }, size: 90, flip: 'scale(1,-1)', reveal: 'reveal-drop', idle: 'animate-float', delay: 520 },
-    { layers: [{ v: 'berry' }], pos: { bottom: 0, right: 0 }, size: 88, flip: 'scale(-1,-1)', reveal: 'reveal-scale', idle: 'animate-drift', delay: 680 },
-  ],
-  closing: [
-    { layers: [{ v: 'rosette' }], pos: { top: 0, left: 0 }, size: 102, flip: 'scale(1,1)', reveal: 'reveal-zoomout', idle: 'animate-float', delay: 200 },
-    { layers: [{ v: 'pine' }], pos: { top: '4%', right: '3%' }, size: 84, flip: 'scale(-1,1)', reveal: 'reveal-down', idle: 'animate-sway', delay: 360 },
-    { layers: [{ v: 'tulip' }], pos: { bottom: '3%', left: 0 }, size: 80, flip: 'scale(1,-1)', reveal: 'reveal-zoom', idle: 'animate-sway', delay: 520 },
-    { layers: [{ v: 'berry' }], pos: { bottom: 0, right: 0 }, size: 92, flip: 'scale(-1,-1)', reveal: 'reveal-up', idle: 'animate-drift', delay: 680 },
-    { layers: [{ v: 'bloom' }], pos: { top: '2%', left: '50%' }, size: 60, flip: 'translateX(-50%)', reveal: 'reveal-blur', idle: 'animate-sway', delay: 820 },
-  ],
-};
+// Fixed corner ornaments — the same four floral image assets in every section,
+// each with its own entrance transition and idle drift. The flip points each
+// bouquet inward toward its corner.
+const CORNER_DECOR: Decoration[] = [
+  { src: 'blue1', pos: { top: 5, left: -8 }, size: 116, flip: 'scale(-1,-1)', reveal: 'reveal-left', idle: 'animate-sway', delay: 200 },
+  { src: 'colorful2', pos: { top: 5, right: 5 }, size: 96, flip: 'scale(-1,1)', reveal: 'reveal-right', idle: 'animate-sway', delay: 360 },
+];
 
 export const Section = memo(function Section({
   id,
   className = '',
-  frame = true,
   children,
 }: {
   id: string;
   className?: string;
-  frame?: boolean;
   children: ReactNode;
 }) {
   const revealed = useContext(RevealContext);
-  const decor = SECTION_DECOR[id] ?? [];
   return (
     <section
       id={id}
@@ -89,10 +46,14 @@ export const Section = memo(function Section({
       className={`relative flex h-[100dvh] w-full items-center justify-center overflow-hidden preserve-3d ${className}`}
       style={{ ['--p' as any]: 0 } as CSSProperties}
     >
-      {frame && decor.length > 0 && <SectionDecor items={decor} />}
       {children}
     </section>
   );
+});
+
+// Fixed viewport-corner decorations, mounted once (in App) — stay put on scroll.
+export const CornerDecor = memo(function CornerDecor() {
+  return <SectionDecor items={CORNER_DECOR} />;
 });
 
 export const Layer = memo(function Layer({
@@ -220,312 +181,14 @@ export function Monogram({
   );
 }
 
-// Corner flourishes — each anchored at the top-left corner (0,0 origin),
-// radiating inward. SectionDecor places & orients them around the section.
-export type FlourishVariant =
-  | 'bloom'
-  | 'vine'
-  | 'pine'
-  | 'tulip'
-  | 'berry'
-  | 'fern'
-  | 'rosette';
-
-function motifBody(variant: FlourishVariant) {
-  switch (variant) {
-      // floral sprig — sweeping stem, leaves, a bloom + berries
-      case 'bloom':
-        return (
-          <>
-            <path
-              d="M4 4 C 50 8, 92 26, 110 92"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-              strokeLinecap="round"
-              opacity="0.85"
-            />
-            <path
-              d="M4 4 C 30 30, 38 60, 36 104"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.6"
-              strokeLinecap="round"
-              opacity="0.55"
-            />
-            <g fill="#129E8F" opacity="0.8">
-              <path d="M40 12 C 52 6, 64 10, 70 20 C 58 22, 46 20, 40 12 Z" />
-              <path d="M78 30 C 92 28, 102 36, 104 48 C 92 46, 82 40, 78 30 Z" />
-            </g>
-            <g fill="#1BB7A6" opacity="0.75">
-              <path d="M16 30 C 8 42, 10 56, 18 64 C 22 52, 22 40, 16 30 Z" />
-              <path d="M96 60 C 108 60, 116 70, 116 82 C 104 80, 96 72, 96 60 Z" />
-            </g>
-            <g stroke="#062A3B" strokeWidth="0.4" opacity="0.5" fill="none">
-              <path d="M44 14 L66 19" />
-              <path d="M80 32 L101 45" />
-              <path d="M17 33 L17 61" />
-            </g>
-            <g>
-              <circle cx="14" cy="14" r="3.6" fill="#1BB7A6" />
-              <circle cx="22" cy="13" r="3" fill="#1BB7A6" />
-              <circle cx="14" cy="22" r="3" fill="#1BB7A6" />
-              <circle cx="20" cy="20" r="2.4" fill="#5FDDCB" />
-              <circle cx="17" cy="17" r="2" fill="#A6F0E6" />
-            </g>
-            <g fill="#5FDDCB" opacity="0.95">
-              <circle cx="58" cy="50" r="2.4" />
-              <circle cx="64" cy="56" r="2" />
-              <circle cx="52" cy="58" r="1.8" />
-            </g>
-          </>
-        );
-      // heart-leaf vine — meandering stem with alternating heart leaves
-      case 'vine':
-        return (
-          <>
-            <path
-              d="M4 4 C 44 18, 24 52, 58 66 C 86 78, 78 104, 110 110"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.9"
-              strokeLinecap="round"
-              opacity="0.8"
-            />
-            <g fill="#1BB7A6" opacity="0.85">
-              <path d="M30 22 C 26 16, 34 14, 36 20 C 38 14, 46 16, 42 22 C 40 27, 36 30, 36 30 C 36 30, 32 27, 30 22 Z" />
-              <path d="M56 60 C 52 54, 60 52, 62 58 C 64 52, 72 54, 68 60 C 66 65, 62 68, 62 68 C 62 68, 58 65, 56 60 Z" />
-            </g>
-            <g fill="#129E8F" opacity="0.8">
-              <path d="M40 40 C 50 36, 56 42, 54 50 C 46 50, 40 46, 40 40 Z" />
-              <path d="M82 84 C 92 80, 98 86, 96 94 C 88 94, 82 90, 82 84 Z" />
-            </g>
-            <g fill="#0B7A75" opacity="0.85">
-              <circle cx="12" cy="12" r="2.4" />
-              <circle cx="74" cy="74" r="2.2" />
-              <circle cx="100" cy="100" r="2" />
-            </g>
-          </>
-        );
-      // fir / pine sprig — diagonal stalk with needle pairs + berries
-      case 'pine':
-        return (
-          <>
-            <path
-              d="M3 3 L96 96"
-              stroke="currentColor"
-              strokeWidth="1"
-              strokeLinecap="round"
-              opacity="0.85"
-            />
-            <g stroke="#129E8F" strokeWidth="0.8" strokeLinecap="round" opacity="0.8">
-              {Array.from({ length: 9 }).map((_, i) => {
-                const t = 12 + i * 9;
-                return (
-                  <g key={i}>
-                    <path d={`M${t} ${t} L${t - 16} ${t + 2}`} />
-                    <path d={`M${t} ${t} L${t + 2} ${t - 16}`} />
-                  </g>
-                );
-              })}
-            </g>
-            <g fill="#0B7A75" opacity="0.9">
-              <circle cx="20" cy="20" r="2.6" />
-              <circle cx="14" cy="26" r="2.2" />
-              <circle cx="26" cy="14" r="2.2" />
-            </g>
-          </>
-        );
-      // tulip spray — stems from the corner with tulip blooms + leaves
-      case 'tulip':
-        return (
-          <>
-            <path
-              d="M6 6 C 22 22, 30 44, 26 72"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-              strokeLinecap="round"
-              opacity="0.85"
-            />
-            <path
-              d="M14 16 C 34 26, 50 30, 64 44"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.7"
-              strokeLinecap="round"
-              opacity="0.6"
-            />
-            {/* leaves */}
-            <g fill="#129E8F" opacity="0.8">
-              <path d="M10 30 C 2 44, 6 60, 16 68 C 18 54, 16 40, 10 30 Z" />
-              <path d="M38 36 C 50 32, 60 38, 58 48 C 48 48, 40 43, 38 36 Z" />
-            </g>
-            {/* tulip bloom 1 */}
-            <g>
-              <path
-                d="M18 72 C 18 64, 22 60, 26 60 C 30 60, 34 64, 34 72 C 30 76, 22 76, 18 72 Z"
-                fill="#1BB7A6"
-              />
-              <path
-                d="M26 60 L26 72 M22 61 C 20 66, 20 70, 22 73 M30 61 C 32 66, 32 70, 30 73"
-                stroke="#062A3B"
-                strokeWidth="0.5"
-                fill="none"
-                opacity="0.5"
-              />
-            </g>
-            {/* tulip bloom 2 */}
-            <g>
-              <path
-                d="M58 44 C 58 38, 61 35, 64 35 C 67 35, 70 38, 70 44 C 67 47, 61 47, 58 44 Z"
-                fill="#5FDDCB"
-              />
-              <path
-                d="M64 35 L64 44"
-                stroke="#062A3B"
-                strokeWidth="0.4"
-                fill="none"
-                opacity="0.5"
-              />
-            </g>
-          </>
-        );
-      // berry branch — arched bough with berry clusters + small leaves
-      case 'berry':
-        return (
-          <>
-            <path
-              d="M3 3 C 40 30, 70 50, 108 70"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-              strokeLinecap="round"
-              opacity="0.85"
-            />
-            <path
-              d="M30 22 C 34 36, 30 50, 22 60"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.6"
-              strokeLinecap="round"
-              opacity="0.55"
-            />
-            <g fill="#1BB7A6">
-              <circle cx="14" cy="12" r="3" />
-              <circle cx="21" cy="16" r="3" />
-              <circle cx="17" cy="22" r="2.6" />
-              <circle cx="58" cy="40" r="2.8" />
-              <circle cx="64" cy="44" r="2.6" />
-              <circle cx="60" cy="48" r="2.4" />
-              <circle cx="96" cy="62" r="2.6" />
-              <circle cx="102" cy="66" r="2.4" />
-            </g>
-            <g fill="#129E8F" opacity="0.8">
-              <path d="M40 26 C 52 22, 60 28, 58 38 C 48 38, 40 33, 40 26 Z" />
-              <path d="M74 50 C 86 46, 94 52, 92 62 C 82 62, 74 57, 74 50 Z" />
-            </g>
-          </>
-        );
-      // fern frond — curved spine with many paired leaflets
-      case 'fern':
-        return (
-          <>
-            <path
-              d="M3 3 C 30 28, 44 64, 50 110"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.9"
-              strokeLinecap="round"
-              opacity="0.8"
-            />
-            <g stroke="#129E8F" strokeWidth="0.7" strokeLinecap="round" opacity="0.8" fill="none">
-              {Array.from({ length: 10 }).map((_, i) => {
-                const x = 5 + i * 4.6;
-                const y = 6 + i * 10.4;
-                const len = 22 - i * 1.4;
-                return (
-                  <g key={i}>
-                    <path d={`M${x} ${y} q ${len * 0.6} ${-len * 0.5} ${len} ${-len * 0.2}`} />
-                    <path d={`M${x} ${y} q ${-len * 0.5} ${len * 0.6} ${-len * 0.2} ${len}`} />
-                  </g>
-                );
-              })}
-            </g>
-            <circle cx="10" cy="9" r="2.4" fill="#0B7A75" />
-          </>
-        );
-      // peony rosette — layered petal arcs forming a bloom + a leaf
-      case 'rosette':
-        return (
-          <>
-            <g
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.7"
-              opacity="0.8"
-            >
-              {[10, 18, 26].map((r) => (
-                <circle key={r} cx="18" cy="18" r={r} />
-              ))}
-            </g>
-            <g fill="#5FDDCB" opacity="0.85">
-              {Array.from({ length: 8 }).map((_, i) => {
-                const a = (i / 8) * Math.PI * 2;
-                const cx = 18 + Math.cos(a) * 14;
-                const cy = 18 + Math.sin(a) * 14;
-                return <circle key={i} cx={cx} cy={cy} r="4.2" />;
-              })}
-            </g>
-            <g fill="#5FDDCB">
-              {Array.from({ length: 6 }).map((_, i) => {
-                const a = (i / 6) * Math.PI * 2;
-                const cx = 18 + Math.cos(a) * 7;
-                const cy = 18 + Math.sin(a) * 7;
-                return <circle key={i} cx={cx} cy={cy} r="3" />;
-              })}
-            </g>
-            <circle cx="18" cy="18" r="3.4" fill="#A6F0E6" />
-            <path
-              d="M40 40 C 64 48, 84 70, 96 104 C 70 92, 50 70, 40 40 Z"
-              fill="#129E8F"
-              opacity="0.5"
-            />
-            <path
-              d="M44 46 C 64 60, 80 80, 92 100"
-              stroke="#062A3B"
-              strokeWidth="0.5"
-              fill="none"
-              opacity="0.5"
-            />
-          </>
-        );
-  }
-}
-
-// A single corner ornament built from layered motifs. Each layer carries an
-// optional transform (t) and opacity (o) so motifs fan out into one bouquet.
-export type FlourishLayer = { v: FlourishVariant; t?: string; o?: number };
-
-function CornerFlourish({ layers }: { layers: FlourishLayer[] }) {
-  return (
-    <svg viewBox="0 0 120 120" width="100%" height="100%" aria-hidden>
-      {layers.map((l, i) => (
-        <g key={i} transform={l.t} opacity={l.o}>
-          {motifBody(l.v)}
-        </g>
-      ))}
-    </svg>
-  );
-}
-
-// A single ornament scattered somewhere in a section. `pos` anchors it (edge
-// offsets), `flip` orients the motif, `reveal` is its entrance transition and
-// `idle` its resting drift. Each one animates independently.
+// A single corner ornament — a floral image asset. `pos` anchors it (edge
+// offsets), `flip` orients it toward the corner, `reveal` is its entrance
+// transition and `idle` its resting drift. Each one animates independently.
 export type Decoration = {
-  layers: FlourishLayer[];
+  src: string;
   pos: CSSProperties;
   size: number;
+  op?: number;
   flip?: string;
   reveal: string;
   idle?: string;
@@ -538,9 +201,12 @@ export const SectionDecor = memo(function SectionDecor({
   items: Decoration[];
 }) {
   return (
+    // fixed to the viewport so the corners stay put while sections scroll;
+    // data-revealed='true' lets the reveal entrance play once on mount.
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 z-10 text-ice-700"
+      data-revealed="true"
+      className="pointer-events-none fixed inset-0 z-30"
     >
       {items.map((d, i) => (
         // outer: position + entrance transition (transform cleared on reveal)
@@ -553,11 +219,15 @@ export const SectionDecor = memo(function SectionDecor({
               transforms don't clobber it */}
           <div style={{ width: d.size, height: d.size, transform: d.flip }}>
             {/* inner: idle drift */}
-            <div
-              className={d.idle}
-              style={{ width: '100%', height: '100%' }}
-            >
-              <CornerFlourish layers={d.layers} />
+            <div className={d.idle} style={{ width: '100%', height: '100%' }}>
+              <img
+                src={`${process.env.PUBLIC_URL}/${d.src}.png`}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full select-none object-contain"
+                style={{ opacity: d.op ?? 0.85 }}
+              />
             </div>
           </div>
         </div>
@@ -565,6 +235,47 @@ export const SectionDecor = memo(function SectionDecor({
     </div>
   );
 });
+
+// Small floral accent for inside glass-cards. Rendered as the first child so
+// card text paints over it; fades in with the card's reveal and gently sways.
+export function CardFlora({
+  src = 'green2',
+  size = 72,
+  op = 0.22,
+  rotate,
+  className = '',
+}: {
+  src?: string;
+  size?: number;
+  op?: number;
+  rotate?: number;
+  className?: string;
+}) {
+  return (
+    // outer: position + transforms via `className` (e.g. "rotate-45 scale-x-[-1]").
+    // `rotate` is an optional inline shortcut — omit it to use Tailwind transform
+    // classes instead (an inline transform would override them). Kept off the
+    // swaying img so static transforms and the sway animation don't clobber each other.
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute z-0 ${className}`}
+      style={{
+        width: size,
+        height: size,
+        ...(rotate != null ? { transform: `rotate(${rotate}deg)` } : {}),
+      }}
+    >
+      <img
+        src={`${process.env.PUBLIC_URL}/${src}.png`}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className="h-full w-full select-none object-contain animate-sway"
+        style={{ opacity: op }}
+      />
+    </div>
+  );
+}
 
 export function OrnamentDivider({ width = 220 }: { width?: number }) {
   return (
@@ -638,52 +349,6 @@ export function Snowflake({
         animationDelay: `${delay}s`,
       }}
     />
-  );
-}
-
-export function PineTree({
-  left = '50%',
-  bottom = '0%',
-  size = 90,
-  opacity = 0.5,
-  delay = 0,
-  variant = 'mid',
-}: {
-  left?: string;
-  bottom?: string;
-  size?: number;
-  opacity?: number;
-  delay?: number;
-  variant?: 'far' | 'mid' | 'near';
-}) {
-  const palette: Record<string, [string, string, string, string]> = {
-    far: ['#A6F0E6', '#5FDDCB', '#1BB7A6', '#0A5A56'],
-    mid: ['#5FDDCB', '#1BB7A6', '#129E8F', '#062A3B'],
-    near: ['#1BB7A6', '#129E8F', '#0B7A75', '#041A26'],
-  };
-  const [c1, c2, c3, trunk] = palette[variant];
-  return (
-    <svg
-      viewBox="0 0 60 100"
-      className={variant === 'near' ? 'animate-sway' : 'animate-swayslow'}
-      style={{
-        position: 'absolute',
-        left,
-        bottom,
-        width: size,
-        height: size * 1.6,
-        transform: 'translateX(-50%)',
-        transformOrigin: 'bottom center',
-        opacity,
-        animationDelay: `${delay}s`,
-      }}
-      aria-hidden
-    >
-      <rect x="27" y="80" width="6" height="20" rx="1" fill={trunk} />
-      <polygon points="30,8 10,48 50,48" fill={c1} />
-      <polygon points="30,28 8,62 52,62" fill={c2} />
-      <polygon points="30,48 5,85 55,85" fill={c3} />
-    </svg>
   );
 }
 
@@ -785,98 +450,6 @@ export const Floret = memo(function Floret({
     </g>
   );
 });
-
-// Broadleaf / blossom tree — brown trunk with a rounded colourful canopy and
-// scattered blossom flecks. The canopy colour is what makes the grove colourful.
-export function BlossomTree({
-  left = '50%',
-  bottom = '0%',
-  size = 90,
-  opacity = 0.6,
-  delay = 0,
-  canopy = '#5FDDCB',
-  accent = '#FFFFFF',
-  trunk = '#062A3B',
-}: {
-  left?: string;
-  bottom?: string;
-  size?: number;
-  opacity?: number;
-  delay?: number;
-  canopy?: string;
-  accent?: string;
-  trunk?: string;
-}) {
-  const cid = `can${idOf(left)}${idOf(String(size))}`;
-  // blossom positions across the canopy [cx, cy] — thinned on mobile
-  const blossoms = (
-    [
-      [22, 30],
-      [38, 27],
-      [30, 40],
-      [14, 46],
-      [46, 45],
-      [27, 21],
-      [41, 55],
-      [18, 57],
-      [33, 52],
-    ] as [number, number][]
-  ).slice(0, LITE ? 4 : 9);
-  return (
-    <svg
-      viewBox="0 0 60 100"
-      className="animate-swayslow"
-      style={{
-        position: 'absolute',
-        left,
-        bottom,
-        width: size,
-        height: size * 1.5,
-        transform: 'translateX(-50%)',
-        transformOrigin: 'bottom center',
-        opacity,
-        animationDelay: `${delay}s`,
-      }}
-      aria-hidden
-    >
-      <defs>
-        <radialGradient id={cid} cx="42%" cy="30%" r="78%">
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.5" />
-          <stop offset="38%" stopColor={canopy} />
-          <stop offset="100%" stopColor={edgeOf(canopy)} />
-        </radialGradient>
-      </defs>
-      <rect x="27.5" y="58" width="5" height="42" rx="2.5" fill={trunk} />
-      <path
-        d="M30 78 C 26 70, 22 66, 18 62 M30 74 C 34 68, 39 65, 43 62"
-        stroke={trunk}
-        strokeWidth="2"
-        fill="none"
-        strokeLinecap="round"
-      />
-      {/* layered canopy with a soft top-lit gradient */}
-      <g fill={`url(#${cid})`}>
-        <circle cx="30" cy="32" r="21" />
-        <circle cx="14" cy="46" r="15" />
-        <circle cx="46" cy="46" r="15" />
-        <circle cx="30" cy="50" r="18" />
-      </g>
-      {/* realistic blossoms dotted across the foliage */}
-      {blossoms.map(([cx, cy], i) => (
-        <Floret
-          key={i}
-          cx={cx}
-          cy={cy}
-          r={3.4}
-          petal={accent}
-          core="#A6F0E6"
-          petals={5}
-          id={`${cid}b${i}`}
-        />
-      ))}
-    </svg>
-  );
-}
 
 // Low flowering shrub for the foreground — a green mound dotted with blooms.
 export function FlowerBush({
@@ -1044,7 +617,44 @@ export function Leaf({
 
 // ───── background layers ────────────────────────────────────────────────
 
+// Bottom-anchored grove built from floral image assets (replaces the old SVG
+// trees), layered far→near for depth and swaying gently.
+type Grove = { src: string; left: string; size: number; op: number };
 function AmbientForest() {
+  // grove = one cohesive GREEN family, spaced across the width so pieces don't
+  // collide; sizes grow far→near for depth.
+  // const far: Grove[] = [
+  //   { src: 'green2', left: '20%', size: 92, op: 0.26 },
+  //   { src: 'green3', left: '50%', size: 96, op: 0.26 },
+  //   { src: 'green1', left: '80%', size: 92, op: 0.26 },
+  // ];
+  // const mid: Grove[] = [
+  //   // { src: 'green1', left: '24%', size: 150, op: 0.5 },
+  //   // { src: 'green4', left: '74%', size: 156, op: 0.5 },
+  // ];
+  const near: Grove[] = [
+    { src: 'green3', left: '0%', size: 210, op: 0.5 },
+    { src: 'green2', left: '52%', size: 200, op: 0.5 },
+    // { src: 'green1', left: '98%', size: 214, op: 0.8 },
+  ];
+  const tree = (g: Grove, key: string, idx: number, anim: string) => (
+    <img
+      key={key}
+      src={`${process.env.PUBLIC_URL}/${g.src}.png`}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      className={`absolute bottom-0 select-none object-contain ${anim}`}
+      style={{
+        left: g.left,
+        width: g.size,
+        opacity: g.op,
+        transform: 'translateX(-50%)',
+        transformOrigin: 'bottom center',
+        animationDelay: `${idx * 0.5}s`,
+      }}
+    />
+  );
   return (
     <div
       aria-hidden
@@ -1054,41 +664,62 @@ function AmbientForest() {
         willChange: 'transform',
       }}
     >
-      {/* far layer — distant pines + soft blossom trees (skipped on mobile) */}
-      {!LITE && (
-        <>
-          <PineTree left="6%" size={70} variant="far" opacity={0.4} delay={0} />
-          <BlossomTree left="18%" size={66} opacity={0.35} delay={1.2} canopy="#A6F0E6" accent="#FFFFFF" />
-          <PineTree left="32%" size={80} variant="far" opacity={0.45} delay={0.6} />
-          <BlossomTree left="48%" size={70} opacity={0.4} delay={2.0} canopy="#5FDDCB" accent="#A6F0E6" />
-          <PineTree left="62%" size={75} variant="far" opacity={0.45} delay={0.9} />
-          <BlossomTree left="78%" size={64} opacity={0.35} delay={1.5} canopy="#5FDDCB" accent="#FFFFFF" />
-          <PineTree left="92%" size={72} variant="far" opacity={0.4} delay={0.3} />
-        </>
-      )}
+      {/* far layer — distant, faint (skipped on mobile) */}
+      {/* {!LITE && far.map((g, i) => tree(g, `far${i}`, i, 'animate-swayslow'))} */}
+      {/* mid layer */}
+      {/* {mid.map((g, i) => tree(g, `mid${i}`, i + 5, 'animate-sway'))} */}
+      {/* near layer — bold foreground grove */}
+      {near.map((g, i) => tree(g, `near${i}`, i + 8, 'animate-swayslow'))}
 
-      {/* mid layer — colourful flowering trees */}
-      <BlossomTree left="10%" size={120} opacity={0.7} delay={0.4} canopy="#1BB7A6" accent="#A6F0E6" />
-      <PineTree left="28%" size={130} variant="mid" opacity={0.72} delay={1.7} />
-      <BlossomTree left="55%" size={128} opacity={0.7} delay={0.8} canopy="#5FDDCB" accent="#FFFFFF" />
-      {!LITE && (
-        <BlossomTree left="80%" size={118} opacity={0.7} delay={2.3} canopy="#5FDDCB" accent="#A6F0E6" />
-      )}
-
-      {/* near layer — bold canopy + a couple of pines for depth */}
-      <BlossomTree left="-4%" size={188} opacity={0.95} delay={0.2} canopy="#1BB7A6" accent="#A6F0E6" />
-      <PineTree left="40%" size={170} variant="near" opacity={0.95} delay={1.1} />
-      <BlossomTree left="100%" size={196} opacity={0.95} delay={0.6} canopy="#5FDDCB" accent="#FFFFFF" />
-
-      {/* foreground flowering shrubs */}
-      <FlowerBush left="14%" size={58} opacity={0.9} delay={0.5} bloom="#1BB7A6" bloom2="#A6F0E6" />
-      <FlowerBush left="60%" size={62} opacity={0.9} delay={0.9} bloom="#5FDDCB" bloom2="#5FDDCB" />
-      {!LITE && (
+      {/* foreground flowering shrubs (SVG) */}
+      {/* <FlowerBush left="14%" size={58} opacity={0.9} delay={0.5} bloom="#1BB7A6" bloom2="#A6F0E6" />
+      <FlowerBush left="60%" size={62} opacity={0.9} delay={0.9} bloom="#5FDDCB" bloom2="#5FDDCB" /> */}
+      {/* {!LITE && (
         <>
           <FlowerBush left="34%" size={48} opacity={0.85} delay={1.4} bloom="#1BB7A6" bloom2="#A6F0E6" />
           <FlowerBush left="86%" size={52} opacity={0.85} delay={1.8} bloom="#1BB7A6" bloom2="#A6F0E6" />
         </>
-      )}
+      )} */}
+    </div>
+  );
+}
+
+// Decorative accents = one cohesive BLUE family, parked at the top + side edges
+// (clear of the bottom green grove and the centred content), spaced so they
+// don't overlap each other.
+function AmbientFlora() {
+  const all = [
+    { src: 'blue1', style: { top: '5%', left: '-4%' }, size: 150, op: 0.18, anim: 'animate-swayslow' },
+    { src: 'blue2', style: { top: '11%', right: '-4%' }, size: 158, op: 0.16, anim: 'animate-sway' },
+    { src: 'blue3', style: { top: '46%', left: '-5%' }, size: 150, op: 0.14, anim: 'animate-sway' },
+    { src: 'blue1', style: { top: '40%', right: '-5%' }, size: 146, op: 0.14, anim: 'animate-swayslow' },
+  ];
+  const items = LITE ? all.slice(0, 2) : all;
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-[-12] overflow-hidden"
+      style={{
+        transform: 'translate3d(0, calc(var(--scroll, 0) * -4vh), 0)',
+        willChange: 'transform',
+      }}
+    >
+      {items.map((f, i) => (
+        <img
+          key={`${f.src}-${i}`}
+          src={`${process.env.PUBLIC_URL}/${f.src}.png`}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className={`absolute select-none object-contain ${f.anim}`}
+          style={{
+            ...f.style,
+            width: f.size,
+            opacity: f.op,
+            animationDelay: `${i * 0.6}s`,
+          }}
+        />
+      ))}
     </div>
   );
 }
@@ -1209,6 +840,7 @@ export const ContinuousBackground = memo(function ContinuousBackground() {
       />
       <BokehLights />
       <AmbientForest />
+      <AmbientFlora />
       <AmbientPetals />
       <div
         aria-hidden

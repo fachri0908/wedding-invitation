@@ -9,19 +9,35 @@ export const COUPLE = {
   groomInitial: 'F',
   brideParents: 'Putri dari Bapak Hosaini & Ibu Tina Guswati',
   groomParents: 'Putra dari Bapak Masril & Ibu Yulianis',
-  date: 'Sabtu, 12 September 2026',
-  dateShort: '12 . 09 . 2026',
-  location: 'Glacier Pavilion, Bali',
-  weddingDate: new Date('2026-09-12T10:00:00+08:00'),
+  date: 'Sabtu, 4 Juli 2026',
+  dateShort: '04 . 07 . 2026',
+  location: 'Desa Gelombang, Pariaman',
+  weddingDate: new Date('2026-07-04T10:00:00+07:00'),
 };
+
+// TODO: replace with the real bank details before sending the invitation.
+export const GIFT = [
+  {
+    owner: 'Mempelai Pria',
+    bank: 'Bank BCA',
+    accountName: 'Fachri Ahmad Zulkarnain',
+    accountNumber: '1234567890',
+  },
+  {
+    owner: 'Mempelai Wanita',
+    bank: 'Bank Mandiri',
+    accountName: 'Annisa Rahmah',
+    accountNumber: '0987654321',
+  },
+];
 
 export const SECTIONS = [
   'hero',
   'couple',
   'story',
   'event',
-  'gallery',
   'rsvp',
+  'gift',
   'closing',
 ] as const;
 

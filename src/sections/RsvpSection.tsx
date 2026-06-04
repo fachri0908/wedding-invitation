@@ -1,5 +1,5 @@
 import { memo, useMemo, useState } from 'react';
-import { Content, Layer, Section, SectionLabel } from '../components';
+import { CardFlora, Content, Layer, Section, SectionLabel } from '../components';
 import { revealStyle } from '../constants';
 
 function ConfettiBurst() {
@@ -69,7 +69,7 @@ export const RsvpSection = memo(function RsvpSection() {
       {sent && <ConfettiBurst key={burstKey} />}
       <Content className="gap-3">
         <div className="reveal-down" style={revealStyle(80)}>
-          <SectionLabel numeral="V" title="RSVP" />
+          <SectionLabel numeral="IV" title="RSVP" />
         </div>
         <h3
           className="reveal-zoomout shimmer-text font-display text-3xl italic"
@@ -82,11 +82,13 @@ export const RsvpSection = memo(function RsvpSection() {
             className="reveal-zoom mt-4 flex flex-col items-center gap-3"
             style={revealStyle(0)}
           >
-            <div className="glass-card rounded-2xl px-6 py-5 text-center">
-              <p className="font-display text-2xl italic text-ice-800">
+            <div className="glass-card relative overflow-hidden rounded-2xl px-6 py-5 text-center">
+              <CardFlora src="blue2" size={88} op={0.18} className="-right-5 -top-5" />
+              <CardFlora src="green1" size={80} op={0.16} className="-left-5 -bottom-5" />
+              <p className="relative font-display text-2xl italic text-ice-800">
                 Terima kasih, {name || 'Sahabat'}
               </p>
-              <p className="mt-2 text-xs uppercase tracking-[0.3em] text-ice-700">
+              <p className="relative mt-2 text-xs uppercase tracking-[0.3em] text-ice-700">
                 {attend === 'yes'
                   ? 'Kami menantikan kehadiran Anda'
                   : 'Anda akan kami rindukan'}

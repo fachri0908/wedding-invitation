@@ -1,22 +1,25 @@
 import { memo } from 'react';
-import { Content, Layer, Section, SectionLabel } from '../components';
+import { CardFlora, Content, Layer, Section, SectionLabel } from '../components';
 import { revealStyle } from '../constants';
 
 const STORY_ITEMS = [
   {
-    y: '2020',
+    y: '2026',
     t: 'Pertama Bertemu',
     d: 'Sebuah pertemuan tak terduga yang mengawali segalanya.',
+    flora: 'green2',
   },
   {
     y: '2023',
     t: 'Semakin Dekat',
     d: 'Melewati banyak cerita dan tumbuh bersama.',
+    flora: 'green4',
   },
   {
     y: '2025',
     t: 'Lamaran',
     d: 'Sebuah janji untuk melangkah ke jenjang yang lebih serius.',
+    flora: 'green1',
   },
 ];
 
@@ -37,13 +40,14 @@ export const StorySection = memo(function StorySection() {
               key={it.y}
               className={`${
                 i % 2 === 0 ? 'reveal-left' : 'reveal-right'
-              } glass-card relative rounded-2xl p-5 text-left`}
+              } glass-card relative overflow-hidden rounded-2xl p-5 text-left`}
               style={revealStyle(260 + i * 240)}
             >
+              <CardFlora src={it.flora} size={84} op={0.18} className="-right-4 -bottom-4" />
               <div className="absolute -left-1 top-5 h-10 w-1 rounded-r-full bg-ice-700/50" />
-              <div className="font-script text-3xl text-ice-700">{it.y}</div>
-              <div className="mt-1 font-display text-xl text-ice-800">{it.t}</div>
-              <p className="mt-1 text-sm italic text-ice-700">{it.d}</p>
+              <div className="relative font-script text-3xl text-ice-700">{it.y}</div>
+              <div className="relative mt-1 font-display text-xl text-ice-800">{it.t}</div>
+              <p className="relative mt-1 text-sm italic text-ice-700">{it.d}</p>
             </li>
           ))}
         </ol>

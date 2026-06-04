@@ -1,25 +1,35 @@
 import { memo } from 'react';
-import { Content, Layer, Section, SectionLabel } from '../components';
+import { CardFlora, Content, Layer, Section, SectionLabel } from '../components';
 import { COUPLE, revealStyle } from '../constants';
 
 function PersonCard({
   name,
   role,
   parents,
+  flora,
+  floraRotate,
+  floraClassName = '',
 }: {
   name: string;
   role: string;
   parents: string;
+  flora: string;
+  floraRotate?: number;
+  floraClassName?: string;
 }) {
   return (
     <div className="glass-card relative w-full overflow-hidden rounded-3xl px-6 py-6">
-      <span className="absolute right-4 top-4 font-script text-3xl text-ice-300/80">
-        ❋
-      </span>
-      <p className="text-[10px] uppercase tracking-[0.4em] text-ice-700">{role}</p>
-      <h2 className="mt-2 font-display text-3xl text-ice-800">{name}</h2>
-      <div className="mt-2 h-px w-12 bg-ice-700/40" />
-      <p className="mt-2 text-sm italic text-ice-700">{parents}</p>
+      <CardFlora
+        src={flora}
+        size={96}
+        op={0.2}
+        rotate={floraRotate}
+        className={`-right-5 -top-5 ${floraClassName}`}
+      />
+      <p className="relative text-[10px] uppercase tracking-[0.4em] text-ice-700">{role}</p>
+      <h2 className="relative mt-2 font-display text-3xl text-ice-800">{name}</h2>
+      <div className="relative mt-2 h-px w-12 bg-ice-700/40" />
+      <p className="relative mt-2 text-sm italic text-ice-700">{parents}</p>
     </div>
   );
 }
@@ -35,23 +45,26 @@ export const CoupleSection = memo(function CoupleSection() {
           <SectionLabel numeral="I" title="Mempelai" />
         </div>
         
-        <div className="reveal-tilt-r w-full" style={revealStyle(720)}>
+        <div className="reveal-tilt-l w-full" style={revealStyle(260)}>
           <PersonCard
-            name={COUPLE.groomFull}
-            role="Mempelai Pria"
-            parents={COUPLE.groomParents}
+            name={COUPLE.brideFull}
+            role="Mempelai Wanita"
+            parents={COUPLE.brideParents}
+            flora="green1"
+            floraClassName='rotate-[210deg]'
           />
         </div>
         
         <div className="reveal-zoom" style={revealStyle(520)}>
           <span className="font-script text-5xl text-ice-600 drop-shadow">&</span>
         </div>
-        
-        <div className="reveal-tilt-l w-full" style={revealStyle(260)}>
+
+        <div className="reveal-tilt-r w-full" style={revealStyle(720)}>
           <PersonCard
-            name={COUPLE.brideFull}
-            role="Mempelai Wanita"
-            parents={COUPLE.brideParents}
+            name={COUPLE.groomFull}
+            role="Mempelai Pria"
+            parents={COUPLE.groomParents}
+            flora="green3"
           />
         </div>
       </Content>
