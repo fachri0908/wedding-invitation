@@ -48,6 +48,26 @@ module.exports = {
           '0%,100%': { transform: 'rotate(-3deg)' },
           '50%': { transform: 'rotate(3deg)' },
         },
+        gateBloomIn: {
+          '0%': { opacity: '0', transform: 'scale(0.6) translateY(20px)' },
+          '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+        },
+        // floral curtain parting: blooms lift, drift outward off their own
+        // edges (--tx/--ty point inward, so negate), grow + rotate, then fade —
+        // gracefully clearing the frame to reveal the page behind
+        gatePart: {
+          '0%': { opacity: '1', transform: 'translate(0,0) scale(1) rotate(0deg)' },
+          '35%': {
+            opacity: '1',
+            transform:
+              'translate(calc(var(--tx) * -0.18), calc(var(--ty) * -0.18)) scale(1.08) rotate(calc(var(--rot) * 0.3))',
+          },
+          '100%': {
+            opacity: '0',
+            transform:
+              'translate(calc(var(--tx) * -1.25), calc(var(--ty) * -1.25)) scale(1.22) rotate(var(--rot))',
+          },
+        },
         swayslow: {
           '0%,100%': { transform: 'rotate(-1.5deg)' },
           '50%': { transform: 'rotate(1.5deg)' },
@@ -223,6 +243,8 @@ module.exports = {
         shimmer: 'shimmer 4s ease-in-out infinite',
         sway: 'sway 6s ease-in-out infinite',
         swayslow: 'swayslow 9s ease-in-out infinite',
+        gateBloomIn: 'gateBloomIn 900ms cubic-bezier(0.22,1,0.36,1) both',
+        gatePart: 'gatePart 1500ms cubic-bezier(0.4,0,0.2,1) both',
         fall: 'fall 18s linear infinite',
         drift: 'drift 7s ease-in-out infinite',
         bobx: 'bobx 10s ease-in-out infinite',

@@ -856,23 +856,101 @@ export const ContinuousBackground = memo(function ContinuousBackground() {
 
 // ───── opening gate ─────────────────────────────────────────────────────
 
+// Decorative floral frame for the opening gate. Deliberately bolder than the
+// ambient flora in regular sections (bigger, higher opacity, layered corners)
+// so the gate reads as the showpiece. Animated entrance + idle sway/float.
+type GateBloom = {
+  src: string;
+  style: React.CSSProperties;
+  size: number;
+  op: number;
+  flip?: string;
+  anim: string;
+  delay: number;
+  // inward vector to center (negated by gatePart to drift outward); rotation
+  // gives each bloom its own gentle spin as it parts away
+  tx: string;
+  ty: string;
+  rot: string;
+};
+
+const GATE_BLOOMS: GateBloom[] = [
+  { src: 'colorful2', style: { top: '-3%', right: '-4%' }, size: 240, op: 0.92, anim: 'animate-swayslow', delay: 120, tx: '-42vw', ty: '40vh', rot: '16deg' },
+  { src: 'blue3', style: { bottom: '-4%', left: '-5%' }, size: 300, op: 0.85, flip: 'scaleX(-1)', anim: 'animate-sway', delay: 240, tx: '44vw', ty: '-40vh', rot: '-14deg' },
+  { src: 'blue1', style: { top: '38%', left: '-7%' }, size: 150, op: 0.45, anim: 'animate-float', delay: 600, tx: '46vw', ty: '8vh', rot: '-18deg' },
+  { src: 'green2', style: { top: '34%', right: '-7%' }, size: 150, op: 0.42, flip: 'scaleX(-1)', anim: 'animate-float', delay: 720, tx: '-46vw', ty: '10vh', rot: '20deg' },
+];
+
+const GateFlora = memo(function GateFlora({
+  converging,
+}: {
+  converging: boolean;
+}) {
+  return (
+    // framing the envelope from behind (z-0) until the envelope has opened; then
+    // the blooms lift in front (z-[60]) and part outward to reveal the page.
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute inset-0 overflow-hidden ${
+        converging ? 'z-[60]' : 'z-0'
+      }`}
+    >
+      {GATE_BLOOMS.map((b, i) => (
+        <div
+          key={i}
+          // idle entrance while the envelope opens; part away once it's open,
+          // lightly staggered so the blooms clear the frame one after another
+          className={`absolute ${converging ? 'animate-gatePart' : 'animate-gateBloomIn'}`}
+          style={
+            {
+              ...b.style,
+              animationDelay: converging ? `${i * 110}ms` : `${b.delay}ms`,
+              willChange: 'transform, opacity',
+              '--tx': b.tx,
+              '--ty': b.ty,
+              '--rot': b.rot,
+            } as React.CSSProperties
+          }
+        >
+          {/* freeze the idle sway/float during the part so the two transforms
+              don't fight and cause jitter */}
+          <div className={converging ? '' : b.anim} style={{ transform: b.flip }}>
+            <img
+              src={`${process.env.PUBLIC_URL}/${b.src}.png`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              className="select-none object-contain drop-shadow-[0_8px_18px_rgba(6,42,59,0.18)]"
+              style={{ width: b.size, height: b.size, opacity: b.op }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+});
+
 export function OpeningGate({ onOpen }: { onOpen: () => void }) {
   const [state, setState] = useState<'idle' | 'opening' | 'closed'>('idle');
+  const [converging, setConverging] = useState(false);
   if (state === 'closed') return null;
   const opening = state !== 'idle';
   const start = () => {
     if (state !== 'idle') return;
     setState('opening');
-    // sequence: flap opens (0–900ms) → letter rises (900–2300ms) → reveal + fade
-    window.setTimeout(onOpen, 2300);
-    window.setTimeout(() => setState('closed'), 3100);
+    // sequence: flap opens (0–900ms) → letter rises (900–2300ms) →
+    // flowers lift in front + converge to center (2300–3800ms) →
+    // gate fades to reveal the first section (~3400ms+)
+    window.setTimeout(() => setConverging(true), 2300);
+    window.setTimeout(onOpen, 3700);
+    window.setTimeout(() => setState('closed'), 4600);
   };
   return (
     <div
       className={`fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[linear-gradient(180deg,#F2F7F6_0%,#A6F0E6_50%,#1BB7A6_100%)] ${
         opening ? 'pointer-events-none animate-envFade' : ''
       }`}
-      style={opening ? { animationDelay: '2300ms' } : undefined}
+      style={opening ? { animationDelay: '3700ms' } : undefined}
     >
       <div className="pointer-events-none absolute inset-0">
         <Snowflake left="12%" size={4} delay={0} />
@@ -882,7 +960,12 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
         <Snowflake left="90%" size={6} delay={0.3} />
       </div>
 
-      <p className="font-body text-[10px] uppercase tracking-[0.5em] text-ice-800">
+      {/* ───── floral frame — richer than other sections to make the gate the
+          most attractive screen. Big layered corner bouquets + side accents.
+          On open they converge to the envelope center, then the gate reveals. */}
+      <GateFlora converging={converging} />
+
+      <p className="font-body text-[10px] uppercase tracking-[0.5em] text-ice-800 text-center">
         Atas berkat rahmat Tuhan Yang Maha Kuasa
       </p>
 
