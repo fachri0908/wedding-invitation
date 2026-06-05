@@ -75,7 +75,7 @@ export const RsvpSection = memo(function RsvpSection() {
           className="reveal-zoomout shimmer-text font-display text-3xl italic"
           style={revealStyle(280)}
         >
-          Apakah Anda akan hadir?
+Mohon doa & kehadiran Anda
         </h3>
         {sent ? (
           <div
@@ -90,8 +90,8 @@ export const RsvpSection = memo(function RsvpSection() {
               </p>
               <p className="relative mt-2 text-xs uppercase tracking-[0.3em] text-ice-700">
                 {attend === 'yes'
-                  ? 'Kami menantikan kehadiran Anda'
-                  : 'Anda akan kami rindukan'}
+                  ? 'Semoga Tuhan memudahkan langkah Anda untuk hadir'
+                  : 'Terima kasih atas doa restu yang Anda panjatkan'}
               </p>
             </div>
           </div>

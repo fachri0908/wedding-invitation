@@ -25,6 +25,7 @@ module.exports = {
         display: ['"Cormorant Garamond"', 'ui-serif', 'serif'],
         body: ['"Inter"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         script: ['"Great Vibes"', 'cursive'],
+        arabic: ['"Amiri"', '"Scheherazade New"', 'serif'],
       },
       boxShadow: {
         glass: '0 8px 32px 0 rgba(6, 42, 59, 0.18)',

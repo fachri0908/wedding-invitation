@@ -44,7 +44,35 @@ export const CoupleSection = memo(function CoupleSection() {
         <div className="reveal-down" style={revealStyle(80)}>
           <SectionLabel numeral="I" title="Mempelai" />
         </div>
-        
+        <p
+          dir="rtl"
+          lang="ar"
+          className="reveal-blur max-w-sm font-arabic text-xl leading-[2] text-ice-800"
+          style={revealStyle(160)}
+        >
+          وَمِنْ كُلِّ شَيْءٍ خَلَقْنَا زَوْجَيْنِ لَعَلَّكُمْ تَذَكَّرُوْنَ 
+        </p>
+        <p
+          className="reveal-blur max-w-xs text-[13px] italic leading-relaxed text-ice-700"
+          style={revealStyle(200)}
+        >
+          “Dan segala sesuatu Kami ciptakan berpasang-pasangan agar kamu
+          mengingat (kebesaran Allah).”
+        </p>
+        <p
+          className="reveal-blur text-[10px] uppercase tracking-[0.3em] text-ice-600"
+          style={revealStyle(240)}
+        >
+          QS. Adz-Dzariyat: 49
+        </p>
+        <p
+          className="reveal-blur mt-1 max-w-xs text-[13px] text-ice-700"
+          style={revealStyle(300)}
+        >
+          Dengan memohon rahmat dan restu-Nya, kami bermaksud menyelenggarakan
+          pernikahan putra-putri kami:
+        </p>
+
         <div className="reveal-tilt-l w-full" style={revealStyle(260)}>
           <PersonCard
             name={COUPLE.brideFull}

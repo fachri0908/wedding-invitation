@@ -883,7 +883,7 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
       </div>
 
       <p className="font-body text-[10px] uppercase tracking-[0.5em] text-ice-800">
-        Dengan hormat kami mengundang Anda
+        Atas berkat rahmat Tuhan Yang Maha Kuasa
       </p>
 
       {/* ───── envelope ───── */}

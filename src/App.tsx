@@ -11,7 +11,7 @@ import {
 import { RevealContext } from './RevealContext';
 import { HeroSection } from './sections/HeroSection';
 import { CoupleSection } from './sections/CoupleSection';
-import { StorySection } from './sections/StorySection';
+import { StorySection, StoryContinued } from './sections/StorySection';
 import { EventSection } from './sections/EventSection';
 import { RsvpSection } from './sections/RsvpSection';
 import { GiftSection } from './sections/GiftSection';
@@ -63,6 +63,7 @@ export default function App() {
           <HeroSection />
           <CoupleSection />
           <StorySection />
+          <StoryContinued />
           <EventSection />
           <RsvpSection />
           <GiftSection />

@@ -25,7 +25,7 @@ export const ClosingSection = memo(function ClosingSection({ onRestart }: { onRe
           className="reveal-blur font-body text-[10px] uppercase tracking-[0.5em] text-ice-700"
           style={revealStyle(320)}
         >
-          Dengan Sukacita & Syukur
+          Penuh Syukur & Sukacita
         </p>
         <h3
           className="reveal-zoomout shimmer-text font-script text-6xl leading-[1.35] px-6 py-2 overflow-visible"
@@ -40,7 +40,9 @@ export const ClosingSection = memo(function ClosingSection({ onRestart }: { onRe
           className="reveal-up max-w-xs text-sm italic text-ice-700"
           style={revealStyle(820)}
         >
-          Kehadiran Anda adalah hadiah terindah bagi kami.
+          Merupakan kebahagiaan dan kehormatan bagi kami atas kehadiran serta
+          doa restu yang Anda berikan. Semoga menjadi keluarga yang penuh
+          keberkahan, cinta, dan kasih sayang hingga akhir hayat.
         </p>
         <p
           className="reveal-up mt-1 font-display text-lg italic text-ice-800"

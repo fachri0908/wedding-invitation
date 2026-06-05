@@ -125,8 +125,9 @@ export const GiftSection = memo(function GiftSection() {
           className="reveal-blur max-w-xs text-sm italic text-ice-700"
           style={revealStyle(380)}
         >
-          Doa restu Anda adalah hadiah terindah. Bagi yang ingin memberi tanda
-          kasih, dapat melalui rekening berikut.
+          Doa restu Anda adalah anugerah terindah bagi kami. Bagi yang ingin
+          berbagi kebahagiaan dalam bentuk tanda kasih, dapat melalui rekening
+          berikut.
         </p>
         {GIFT.map((acc, i) => (
           <GiftCard

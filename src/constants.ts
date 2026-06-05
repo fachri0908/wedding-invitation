@@ -35,6 +35,7 @@ export const SECTIONS = [
   'hero',
   'couple',
   'story',
+  'story-2',
   'event',
   'rsvp',
   'gift',
