@@ -4,8 +4,7 @@ import { revealStyle } from '../constants';
 
 // the story, split into two pages so each fits within a viewport
 const PAGE_ONE = [
-  'Melalui bisikan perantara, dua nama yang asing perlahan dijahit semesta menjadi satu cerita.',
-  'Merah pipi menyimpan rahasia, pesan yang tak berujung jadi candu, dan pertemuan diam-diam menjadi awal debar yang tumbuh.',
+  'Melalui bisikan perantara, dua nama yang asing perlahan dijahit semesta menjadi satu cerita. Merah pipi menyimpan rahasia, pesan yang tak berujung jadi candu, dan pertemuan diam-diam menjadi awal debar yang tumbuh.',
   'Allah mempertemukan kami di waktu yang mungkin tidak pernah kami rencanakan sebelumnya. Dalam langkah yang sederhana, dalam doa-doa yang diam-diam dipanjatkan, hingga akhirnya hati ini saling dipertemukan oleh cara terbaik menurut-Nya.',
   'Namun, perjalanan kami bukan tanpa ujian. Ada jarak yang memisahkan, ada ego yang harus diredam, dan ada masa di mana semuanya terasa tidak pasti. Kami pernah berada di titik lelah, mempertanyakan apakah semua ini layak untuk diperjuangkan.',
   'Tapi entah bagaimana, setiap kali hampir menyerah selalu ada alasan untuk kembali. Selalu ada rasa yang lebih kuat dari keraguan. Kami belajar bahwa cinta bukan hanya tentang bahagia, tapi juga tentang memilih untuk tetap tinggal bahkan di saat keadaan tidak baik-baik saja.',
