@@ -966,9 +966,16 @@ const GateFlora = memo(function GateFlora({
   );
 });
 
+// Recipient name comes from the share link, e.g. ?recipient=Budi%20%26%20Keluarga
+function getRecipientName(): string {
+  const raw = new URLSearchParams(window.location.search).get('to');
+  return raw?.trim() || 'Tamu Undangan';
+}
+
 export function OpeningGate({ onOpen }: { onOpen: () => void }) {
   const [state, setState] = useState<'idle' | 'opening' | 'closed'>('idle');
   const [converging, setConverging] = useState(false);
+  const recipient = getRecipientName();
   if (state === 'closed') return null;
   const opening = state !== 'idle';
   const start = () => {
@@ -1108,10 +1115,20 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
         </div>
       </div>
 
+      {/* ───── recipient ───── */}
+      <div className="mt-9 flex flex-col items-center px-8 text-center">
+        <p className=" text-[10px] uppercase tracking-[0.45em] text-ice-700">
+          Kepada Yth.
+        </p>
+        <p className="mt-2 font-script text-2xl leading-tight text-ice-900">
+          {recipient}
+        </p>
+      </div>
+
       <button
         onClick={start}
         disabled={opening}
-        className="group relative mt-12 overflow-hidden rounded-full bg-ice-800 px-10 py-3.5 font-body text-xs uppercase tracking-[0.4em] text-white shadow-ice transition-all hover:bg-ice-900 active:scale-95 disabled:opacity-0"
+        className="group relative mt-7 overflow-hidden rounded-full bg-ice-800 px-10 py-3.5 font-body text-xs uppercase tracking-[0.4em] text-white shadow-ice transition-all hover:bg-ice-900 active:scale-95 disabled:opacity-0"
       >
         <span className="relative z-10">Buka Undangan</span>
         <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
