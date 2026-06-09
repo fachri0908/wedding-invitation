@@ -27,8 +27,7 @@ function PersonCard({
         className={`-right-5 -top-5 ${floraClassName}`}
       />
       <p className="relative text-[10px] uppercase tracking-[0.4em] text-ice-700">{role}</p>
-      <h2 className="relative mt-2 font-display text-3xl text-ice-800">{name}</h2>
-      <div className="relative mt-2 h-px w-12 bg-ice-700/40" />
+      <h2 className="relative mt-2 font-display text-2xl text-ice-800">{name}</h2>
       <p className="relative mt-2 text-sm italic text-ice-700">{parents}</p>
     </div>
   );
@@ -44,14 +43,6 @@ export const CoupleSection = memo(function CoupleSection() {
         <div className="reveal-down" style={revealStyle(80)}>
           <SectionLabel numeral="I" title="Mempelai" />
         </div>
-        <p
-          dir="rtl"
-          lang="ar"
-          className="reveal-blur max-w-sm font-arabic text-xl leading-[2] text-ice-800"
-          style={revealStyle(160)}
-        >
-          وَمِنْ كُلِّ شَيْءٍ خَلَقْنَا زَوْجَيْنِ لَعَلَّكُمْ تَذَكَّرُوْنَ 
-        </p>
         <p
           className="reveal-blur max-w-xs text-[13px] italic leading-relaxed text-ice-700"
           style={revealStyle(200)}

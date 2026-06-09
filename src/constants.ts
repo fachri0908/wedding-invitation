@@ -21,13 +21,13 @@ export const GIFT = [
     owner: 'Mempelai Pria',
     bank: 'Bank BCA',
     accountName: 'Fachri Ahmad Zulkarnain',
-    accountNumber: '1234567890',
+    accountNumber: '2180236751',
   },
   {
     owner: 'Mempelai Wanita',
-    bank: 'Bank Mandiri',
+    bank: 'Bank BNI',
     accountName: 'Annisa Rahmah',
-    accountNumber: '0987654321',
+    accountNumber: '1181675821',
   },
 ];
 

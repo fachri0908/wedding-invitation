@@ -72,7 +72,7 @@ function GiftCard({
         {/* chip */}
         <div className="relative mt-4 h-7 w-10 rounded-md bg-[linear-gradient(135deg,#E3F3F0,#A6F0E6,#5FDDCB)]" />
         {/* account number */}
-        <p className="relative mt-4 font-display text-xl tabular-nums tracking-[0.2em] text-white">
+        <p className="relative mt-4 text-xl tabular-nums tracking-[0.2em] text-white">
           {group(acc.accountNumber)}
         </p>
         {/* holder + owner */}
@@ -119,14 +119,14 @@ export const GiftSection = memo(function GiftSection() {
           className="reveal-zoomout shimmer-text font-display text-3xl italic"
           style={revealStyle(240)}
         >
-          Tanda Kasih
+          Kirimkan Hadiah
         </h3>
         <p
           className="reveal-blur max-w-xs text-sm italic text-ice-700"
           style={revealStyle(380)}
         >
           Doa restu Anda adalah anugerah terindah bagi kami. Bagi yang ingin
-          berbagi kebahagiaan dalam bentuk tanda kasih, dapat melalui rekening
+          berbagi kebahagiaan dalam bentuk hadiah, dapat melalui rekening
           berikut.
         </p>
         {GIFT.map((acc, i) => (

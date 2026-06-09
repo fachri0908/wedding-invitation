@@ -23,7 +23,7 @@ function Countdown() {
       {units.map(([label, val]) => (
         <div
           key={label}
-          className="glass-card flex flex-col items-center rounded-2xl px-2 py-3"
+          className="glass-card flex flex-col items-center rounded-2xl p-2"
         >
           <div className="font-display text-2xl tabular-nums text-ice-800">
             {String(val).padStart(2, '0')}
@@ -58,7 +58,7 @@ function EventCard({
     mapUrl ??
     `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`;
   return (
-    <div className="glass-card relative w-full overflow-hidden rounded-3xl p-4">
+    <div className="glass-card relative w-full overflow-hidden rounded-3xl p-3">
       <CardFlora
         src={flora}
         size={88}
@@ -67,7 +67,7 @@ function EventCard({
         className={`-right-5 -top-5 ${floraClassName}`}
       />
       <div className="relative font-display text-2xl text-ice-800">{title}</div>
-      <div className="relative mt-2 flex flex-col items-center justify-between text-sm text-ice-700">
+      <div className="relative flex flex-col items-center justify-between text-sm text-ice-700">
         <span className="font-display italic">{time}</span>
         <span className="text-[11px] uppercase tracking-[0.3em]">{place}</span>
       </div>
@@ -91,7 +91,7 @@ export const EventSection = memo(function EventSection() {
       </Layer>
       <Content className="gap-4">
         <div className="reveal-swing" style={revealStyle(80)}>
-          <SectionLabel numeral="III" title="Simpan Tanggal" />
+          <SectionLabel numeral="II" title="Simpan Tanggal" />
         </div>
         <div className="reveal-flip w-full" style={revealStyle(240)}>
           <Countdown />
@@ -103,6 +103,7 @@ export const EventSection = memo(function EventSection() {
             place="Kediaman Mempelai Wanita, Desa Gelombang"
             flora="blue1"
             floraClassName='rotate-180 mr-3 mt-3'
+            mapUrl="https://maps.app.goo.gl/mnwBhbHkVrPzXmyg8?g_st=aw"
           />
         </div>
         <div className="reveal-right w-full" style={revealStyle(640)}>
@@ -112,6 +113,7 @@ export const EventSection = memo(function EventSection() {
             place="Kediaman Mempelai Wanita, Desa Gelombang"
             flora="blue3"
             floraClassName='rotate-180 mr-3 mt-3'
+            mapUrl="https://maps.app.goo.gl/mnwBhbHkVrPzXmyg8?g_st=aw"
           />
         </div>
         <div className="reveal-right w-full" style={revealStyle(640)}>
@@ -121,6 +123,7 @@ export const EventSection = memo(function EventSection() {
             place="Kediaman Mempelai Pria, Bulaan, Kp Baru Padusunan"
             flora="blue3"
             floraClassName='rotate-180 mr-3 mt-3'
+            mapUrl="https://maps.app.goo.gl/ieyk3EVAEPBzzMCh8"
           />
         </div>
       </Content>
