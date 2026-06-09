@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import {
   Content,
+  FloralRing,
   Layer,
-  Monogram,
   OrnamentDivider,
   // ScrollCue,
   Section,
@@ -37,7 +37,7 @@ export const HeroSection = memo(function HeroSection() {
       <SparkleTrail />
       <Content>
         <div className="reveal-zoom" style={revealStyle(80)}>
-          <Monogram size={90} />
+          <FloralRing size={150} />
         </div>
         <p
           className="reveal-blur mt-6 font-body text-xs uppercase tracking-[0.5em] text-ice-700"
@@ -46,7 +46,7 @@ export const HeroSection = memo(function HeroSection() {
           Pernikahan
         </p>
         <h1
-          className="reveal-blur shimmer-text mt-4 font-script text-7xl leading-none drop-shadow-sm"
+          className="reveal-blur flex flex-col shimmer-text mt-4 font-script text-7xl leading-none drop-shadow-sm"
           style={revealStyle(420)}
         >
           {COUPLE.bride}

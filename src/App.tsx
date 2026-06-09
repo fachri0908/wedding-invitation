@@ -39,13 +39,54 @@ export default function App() {
     const i = SECTIONS.indexOf(id as SectionId);
     if (i >= 0) goRef.current(i);
   }, [goRef]);
-  const handleOpen = useCallback(() => setOpened(true), []);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [muted, setMuted] = useState(false);
+  const handleOpen = useCallback(() => {
+    setOpened(true);
+    // Click is the user gesture autoplay policy requires; play() buffers and
+    // starts as soon as the file is ready. Swallow rejection (e.g. blocked).
+    audioRef.current?.play().catch(() => {});
+  }, []);
   const handleRestart = useCallback(() => go('hero'), [go]);
+  const toggleMute = useCallback(() => {
+    const a = audioRef.current;
+    if (!a) return;
+    a.muted = !a.muted;
+    setMuted(a.muted);
+  }, []);
 
   return (
     <>
+      <audio
+        ref={audioRef}
+        src={`${process.env.PUBLIC_URL}/nuansa-romansa.mp3`}
+        loop
+        preload="auto"
+      />
       <ContinuousBackground />
       {!opened ? <OpeningGate onOpen={handleOpen} /> : null}
+      {opened && (
+        <button
+          type="button"
+          onClick={toggleMute}
+          aria-label={muted ? 'Putar musik' : 'Senyapkan musik'}
+          className="fixed bottom-4 right-4 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-white/70 text-ice-800 shadow-md backdrop-blur transition hover:bg-white/90"
+        >
+          {muted ? (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M11 5 6 9H2v6h4l5 4V5z" />
+              <line x1="23" y1="9" x2="17" y2="15" />
+              <line x1="17" y1="9" x2="23" y2="15" />
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M11 5 6 9H2v6h4l5 4V5z" />
+              <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+              <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+            </svg>
+          )}
+        </button>
+      )}
       <SectionTransition trigger={trans} />
       {opened && <CornerDecor />}
       <Nav active={active} sections={SECTIONS} onGo={go} visible={opened} />

@@ -3,8 +3,8 @@ import type { CSSProperties } from 'react';
 export const COUPLE = {
   bride: 'Annisa',
   groom: 'Fachri',
-  brideFull: 'Annisa Rahmah',
-  groomFull: 'Fachri Ahmad Zulkarnain',
+  brideFull: 'Annisa Rahmah, S.Sos.',
+  groomFull: 'Fachri Ahmad Zulkarnain, S.Kom',
   brideInitial: 'A',
   groomInitial: 'F',
   brideParents: 'Putri dari Bapak Hosaini & Ibu Tina Guswati',

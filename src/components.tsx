@@ -173,7 +173,63 @@ export function Monogram({
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="flex items-baseline gap-1 font-display text-ice-800">
           <span className="text-4xl italic">{COUPLE.brideInitial}</span>
-          <span className="font-script text-3xl text-ice-600">&</span>
+          <span className="font-script text-3xl text-ice-600">|</span>
+          <span className="text-4xl italic">{COUPLE.groomInitial}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// A wreath of flower assets circling the couple's initials — drop-in for the
+// Monogram. Blooms are placed evenly around a circle and the whole ring drifts
+// in a very slow spin so it feels alive without distracting.
+export function FloralRing({
+  size = 150,
+  count = 9,
+  // blue3 is the bluest asset; kept semi-transparent and spaced out so the ring
+  // blends into the gradient rather than standing out
+  bloom = ['blue1'],
+  spin = true,
+}: {
+  size?: number;
+  count?: number;
+  bloom?: string[];
+  spin?: boolean;
+}) {
+  const radius = size * 0.42;
+  const bloomSize = size * 0.24;
+  return (
+    <div className="relative" style={{ width: size, height: size }}>
+      <div
+        aria-hidden
+        className={`absolute inset-0 ${spin ? 'animate-spinSlow' : ''}`}
+        style={spin ? { animationDuration: '120s' } : undefined}
+      >
+        {Array.from({ length: count }).map((_, i) => {
+          const a = (i / count) * 360;
+          return (
+            <img
+              key={i}
+              src={`${process.env.PUBLIC_URL}/${bloom[i % bloom.length]}.png`}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="absolute left-1/2 top-1/2 select-none object-contain"
+              style={{
+                width: bloomSize,
+                height: bloomSize,
+                transform: `translate(-50%, -50%) rotate(${a}deg) translateY(-${radius}px) rotate(210deg)`,
+                opacity: 0.5,
+              }}
+            />
+          );
+        })}
+      </div>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="flex items-baseline gap-1 font-display text-ice-800">
+          <span className="text-4xl italic">{COUPLE.brideInitial}</span>
+          <span className="font-script text-3xl text-ice-600">&amp;</span>
           <span className="text-4xl italic">{COUPLE.groomInitial}</span>
         </div>
       </div>
@@ -206,7 +262,7 @@ export const SectionDecor = memo(function SectionDecor({
     <div
       aria-hidden
       data-revealed="true"
-      className="pointer-events-none fixed inset-0 z-30"
+      className="pointer-events-none fixed inset-0 z-1 opacity-55"
     >
       {items.map((d, i) => (
         // outer: position + entrance transition (transform cleared on reveal)
@@ -619,7 +675,7 @@ export function Leaf({
 
 // Bottom-anchored grove built from floral image assets (replaces the old SVG
 // trees), layered far→near for depth and swaying gently.
-type Grove = { src: string; left: string; size: number; op: number };
+type Grove = { src: string; left?: string; right?: string; size: number; op: number };
 function AmbientForest() {
   // grove = one cohesive GREEN family, spaced across the width so pieces don't
   // collide; sizes grow far→near for depth.
@@ -633,8 +689,8 @@ function AmbientForest() {
   //   // { src: 'green4', left: '74%', size: 156, op: 0.5 },
   // ];
   const near: Grove[] = [
-    { src: 'green3', left: '0%', size: 210, op: 0.5 },
-    { src: 'green2', left: '52%', size: 200, op: 0.5 },
+    { src: 'green3', left: '0%', size: 140, op: 0.5 },
+    { src: 'green2', right: '0%', size: 140, op: 0.5 },
     // { src: 'green1', left: '98%', size: 214, op: 0.8 },
   ];
   const tree = (g: Grove, key: string, idx: number, anim: string) => (
@@ -644,9 +700,10 @@ function AmbientForest() {
       alt=""
       loading="lazy"
       decoding="async"
-      className={`absolute bottom-0 select-none object-contain ${anim}`}
+      className={`absolute -bottom-4 select-none object-contain ${anim}`}
       style={{
         left: g.left,
+        right: g.right,
         width: g.size,
         opacity: g.op,
         transform: 'translateX(-50%)',
