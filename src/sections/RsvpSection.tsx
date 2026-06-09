@@ -2,6 +2,9 @@ import { memo, useMemo, useState } from 'react';
 import { CardFlora, Content, Layer, Section, SectionLabel } from '../components';
 import { revealStyle } from '../constants';
 
+const RSVP_ENDPOINT =
+  'https://script.google.com/macros/s/AKfycbzsMCGVGQCRler-HrwHd5cYQv6rBG9HbWHOmoNBa7J8DPFYQRpD5ixayGIrdm7LKuiTEw/exec';
+
 function ConfettiBurst() {
   const items = useMemo(
     () =>
@@ -57,10 +60,37 @@ function ConfettiBurst() {
 }
 
 export const RsvpSection = memo(function RsvpSection() {
-  const [name, setName] = useState('');
+  const [name, setName] = useState(
+    () => new URLSearchParams(window.location.search).get('to')?.trim() || '',
+  );
   const [attend, setAttend] = useState<'yes' | 'no' | null>(null);
   const [sent, setSent] = useState(false);
   const [burstKey, setBurstKey] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !attend || submitting) return;
+    setSubmitting(true);
+    setError(false);
+    try {
+      const body = {
+        name,
+        confirmation: attend === 'yes' ? 'attending' : 'not attending',
+      };
+      // no-cors: Apps Script doesn't send CORS headers, so the response is
+      // opaque (unreadable). A resolved fetch means the POST was delivered;
+      // only a network failure rejects.
+      await fetch(RSVP_ENDPOINT, { method: 'POST', mode: 'no-cors', body: JSON.stringify(body) });
+      setSent(true);
+      setBurstKey((k) => k + 1);
+    } catch {
+      setError(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
   return (
     <Section id="rsvp">
       <Layer depth={1.2} className="opacity-50">
@@ -96,14 +126,7 @@ Mohon doa & kehadiran Anda
             </div>
           </div>
         ) : (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-              setBurstKey((k) => k + 1);
-            }}
-            className="mt-2 flex w-full flex-col gap-3"
-          >
+          <form onSubmit={handleSubmit} className="mt-2 flex w-full flex-col gap-3">
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -129,13 +152,20 @@ Mohon doa & kehadiran Anda
             </div>
             <button
               type="submit"
-              disabled={!name || !attend}
+              disabled={!name || !attend || submitting}
               className="reveal-zoom group relative mt-2 overflow-hidden rounded-full bg-white px-6 py-3 text-xs font-medium uppercase tracking-[0.3em] text-ice-800 shadow-ice disabled:opacity-50"
               style={revealStyle(820)}
             >
-              <span className="relative z-10">Kirim Konfirmasi</span>
+              <span className="relative z-10">
+                {submitting ? 'Mengirim…' : 'Kirim Konfirmasi'}
+              </span>
               <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-ice-200 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
             </button>
+            {error && (
+              <p className="text-center text-xs text-rose-600">
+                Maaf, konfirmasi gagal terkirim. Silakan coba lagi.
+              </p>
+            )}
           </form>
         )}
       </Content>

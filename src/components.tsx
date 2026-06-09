@@ -966,7 +966,7 @@ const GateFlora = memo(function GateFlora({
   );
 });
 
-// Recipient name comes from the share link, e.g. ?recipient=Budi%20%26%20Keluarga
+// Recipient name comes from the share link, e.g. ?to=Budi%20%26%20Keluarga
 function getRecipientName(): string {
   const raw = new URLSearchParams(window.location.search).get('to');
   return raw?.trim() || 'Tamu Undangan';
