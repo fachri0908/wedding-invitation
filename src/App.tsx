@@ -70,7 +70,7 @@ export default function App() {
           type="button"
           onClick={toggleMute}
           aria-label={muted ? 'Putar musik' : 'Senyapkan musik'}
-          className="fixed bottom-4 right-4 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-white/70 text-ice-800 shadow-md backdrop-blur transition hover:bg-white/90"
+          className="fixed bottom-4 right-4 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-white/30 text-ice-800 shadow-md backdrop-blur transition hover:bg-white/40"
         >
           {muted ? (
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

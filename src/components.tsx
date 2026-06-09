@@ -197,34 +197,13 @@ export function FloralRing({
   bloom?: string[];
   spin?: boolean;
 }) {
-  const radius = size * 0.42;
-  const bloomSize = size * 0.24;
   return (
     <div className="relative" style={{ width: size, height: size }}>
       <div
         aria-hidden
-        className={`absolute inset-0 ${spin ? 'animate-spinSlow' : ''}`}
-        style={spin ? { animationDuration: '120s' } : undefined}
+        className={`absolute inset-0`}
       >
-        {Array.from({ length: count }).map((_, i) => {
-          const a = (i / count) * 360;
-          return (
-            <img
-              key={i}
-              src={`${process.env.PUBLIC_URL}/${bloom[i % bloom.length]}.png`}
-              alt=""
-              loading="lazy"
-              decoding="async"
-              className="absolute left-1/2 top-1/2 select-none object-contain"
-              style={{
-                width: bloomSize,
-                height: bloomSize,
-                transform: `translate(-50%, -50%) rotate(${a}deg) translateY(-${radius}px) rotate(210deg)`,
-                opacity: 0.5,
-              }}
-            />
-          );
-        })}
+        <img src='/frame.png' className='w-45 h-35 opacity-30' alt="frame"/>
       </div>
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="flex items-baseline gap-1 font-display text-ice-800">
@@ -1022,13 +1001,13 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
           On open they converge to the envelope center, then the gate reveals. */}
       <GateFlora converging={converging} />
 
-      <p className="font-body text-[10px] uppercase tracking-[0.5em] text-ice-800 text-center">
+      <p className="font-body text-[10px] uppercase tracking-[0.5em] px-10 text-ice-800 text-center">
         Atas berkat rahmat Tuhan Yang Maha Kuasa
       </p>
 
       {/* ───── envelope ───── */}
       <div
-        className="relative mt-8"
+        className="relative mt-5"
         style={{ width: 300, height: 200, perspective: '1100px' }}
       >
         {/* back panel */}
