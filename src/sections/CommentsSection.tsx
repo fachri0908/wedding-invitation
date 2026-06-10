@@ -30,6 +30,7 @@ export const CommentsSection = memo(function CommentsSection() {
     try {
       const res = await fetch(COMMENTS_ENDPOINT, { method: 'GET', mode: "no-cors" });
       const data = await res.json();
+      // console.log(data)
       const list: any[] = Array.isArray(data)
         ? data
         : data?.comments ?? data?.data ?? [];
@@ -37,7 +38,7 @@ export const CommentsSection = memo(function CommentsSection() {
         list
           .map((c) => ({
             name: (c.name ?? '').toString(),
-            comment: (c.comment ?? c.message ?? '').toString(),
+            comment: (c.comment ?? '').toString(),
             type: "comment",
           }))
           .filter((c) => c.comment),
