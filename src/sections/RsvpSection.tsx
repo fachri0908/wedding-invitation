@@ -3,7 +3,7 @@ import { CardFlora, Content, Layer, Section, SectionLabel } from '../components'
 import { revealStyle } from '../constants';
 
 const RSVP_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbzsMCGVGQCRler-HrwHd5cYQv6rBG9HbWHOmoNBa7J8DPFYQRpD5ixayGIrdm7LKuiTEw/exec';
+  'https://script.google.com/macros/s/AKfycbz6gy5SC-7c83vzr67-ifp6fBvEd5Xe53pnTJB1hvw7BuODYA5dkc2FLBwrs6N8G3lmPQ/exec';
 
 function ConfettiBurst() {
   const items = useMemo(
@@ -78,6 +78,7 @@ export const RsvpSection = memo(function RsvpSection() {
       const body = {
         name,
         confirmation: attend === 'yes' ? 'attending' : 'not attending',
+        type: "confirmation",
       };
       // no-cors: Apps Script doesn't send CORS headers, so the response is
       // opaque (unreadable). A resolved fetch means the POST was delivered;

@@ -100,7 +100,7 @@ export const EventSection = memo(function EventSection() {
           <EventCard
             title="Akad Nikah"
             time="Sabtu, 4 Juli 2026, 13.00 WIB"
-            place="Kediaman Mempelai Wanita, Desa Gelombang"
+            place="Kediaman Mempelai Wanita, Alai Gelombang"
             flora="blue1"
             floraClassName='rotate-180 mr-3 mt-3'
             mapUrl="https://maps.app.goo.gl/mnwBhbHkVrPzXmyg8?g_st=aw"
@@ -110,7 +110,7 @@ export const EventSection = memo(function EventSection() {
           <EventCard
             title="Resepsi 1"
             time="Minggu, 5 Juli 2026, 10.00 WIB"
-            place="Kediaman Mempelai Wanita, Desa Gelombang"
+            place="Kediaman Mempelai Wanita, Alai Gelombang"
             flora="blue3"
             floraClassName='rotate-180 mr-3 mt-3'
             mapUrl="https://maps.app.goo.gl/mnwBhbHkVrPzXmyg8?g_st=aw"

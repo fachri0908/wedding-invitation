@@ -11,7 +11,7 @@ export const COUPLE = {
   groomParents: 'Putra dari Bapak Masril & Ibu Yulianis',
   date: 'Sabtu, 4 Juli 2026',
   dateShort: '04 . 07 . 2026',
-  location: 'Desa Gelombang, Pariaman',
+  location: 'Alai Gelombang, Pariaman',
   weddingDate: new Date('2026-07-04T10:00:00+07:00'),
 };
 
@@ -39,6 +39,7 @@ export const SECTIONS = [
   'event',
   'rsvp',
   'gift',
+  'comments',
   'closing',
 ] as const;
 

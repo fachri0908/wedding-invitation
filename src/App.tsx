@@ -15,6 +15,7 @@ import { StorySection, StoryContinued } from './sections/StorySection';
 import { EventSection } from './sections/EventSection';
 import { RsvpSection } from './sections/RsvpSection';
 import { GiftSection } from './sections/GiftSection';
+import { CommentsSection } from './sections/CommentsSection';
 import { ClosingSection } from './sections/ClosingSection';
 
 export default function App() {
@@ -108,6 +109,7 @@ export default function App() {
           <EventSection />
           <RsvpSection />
           <GiftSection />
+          <CommentsSection />
           <ClosingSection onRestart={handleRestart} />
         </main>
       </RevealContext.Provider>
