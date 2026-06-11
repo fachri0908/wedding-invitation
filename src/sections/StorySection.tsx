@@ -63,7 +63,7 @@ export const StoryContinued = memo(function StoryContinued() {
       </Layer>
       <Content className="gap-3">
         <div className="reveal-down" style={revealStyle(80)}>
-          <SectionLabel numeral="•" title="Kisah Kami" />
+          <SectionLabel numeral="II" title="Kisah Kami" />
         </div>
         <StoryPageCard paragraphs={PAGE_TWO} />
       </Content>
