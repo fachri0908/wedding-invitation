@@ -31,6 +31,12 @@ export const GIFT = [
   },
 ];
 
+// Dana e-wallet — groom only. TODO: replace phone with the real Dana number.
+export const DANA = {
+  name: 'Annisa Rahmah',
+  phone: '081298759334',
+};
+
 export const SECTIONS = [
   'hero',
   'couple',

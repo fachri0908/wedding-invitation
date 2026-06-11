@@ -1,6 +1,6 @@
 import { memo, useRef, useState } from 'react';
 import { Content, Layer, Section, SectionLabel } from '../components';
-import { COUPLE, GIFT, revealStyle } from '../constants';
+import { COUPLE, DANA, GIFT, revealStyle } from '../constants';
 
 type Account = (typeof GIFT)[number];
 
@@ -43,55 +43,93 @@ function GiftCard({
   onCopied: (ok: boolean) => void;
 }) {
   const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    const ok = await copyToClipboard(acc.accountNumber);
-    onCopied(ok);
-    if (ok) {
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
-    }
+  const copy = () => {
+    // optimistic feedback so the button reacts instantly, not after the await
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+    copyToClipboard(acc.accountNumber).then(onCopied);
   };
   return (
     // single ATM-style card holding all the account info + copy button
     <div
-      className="reveal-up w-full max-w-[320px]"
+      className="reveal-up w-full max-w-[280px]"
       style={revealStyle(delay)}
     >
-      <div className="relative overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#0A5A56_0%,#0B7A75_45%,#1BB7A6_100%)] p-5 text-left text-white shadow-ice">
-        <span className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/15 blur-2xl" />
+      <div className="relative overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#0A5A56_0%,#0B7A75_45%,#1BB7A6_100%)] p-4 text-left text-white shadow-ice">
+        <span className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-white/15 blur-2xl" />
         {/* bank + couple monogram */}
         <div className="relative flex items-center justify-between">
-          <span className="font-body text-[10px] uppercase tracking-[0.35em] text-white/80">
+          <span className="font-body text-[9px] uppercase tracking-[0.35em] text-white/80">
             {acc.bank}
           </span>
-          <span className="font-script text-xl leading-none text-white/90">
+          <span className="font-script text-lg leading-none text-white/90">
             {COUPLE.brideInitial}
             {COUPLE.groomInitial}
           </span>
         </div>
         {/* chip */}
-        <div className="relative mt-4 h-7 w-10 rounded-md bg-[linear-gradient(135deg,#E3F3F0,#A6F0E6,#5FDDCB)]" />
+        <div className="relative mt-3 h-6 w-9 rounded-md bg-[linear-gradient(135deg,#E3F3F0,#A6F0E6,#5FDDCB)]" />
         {/* account number */}
-        <p className="relative mt-4 text-xl tabular-nums tracking-[0.2em] text-white">
+        <p className="relative mt-3 text-lg tabular-nums tracking-[0.2em] text-white">
           {group(acc.accountNumber)}
         </p>
         {/* holder + owner */}
-        <div className="relative mt-3 flex items-end justify-between">
+        <div className="relative mt-2.5 flex items-end justify-between">
           <div>
             <p className="text-[9px] uppercase tracking-[0.3em] text-white/60">
               {acc.owner}
             </p>
-            <p className="mt-0.5 text-xs uppercase tracking-[0.2em] text-white/90">
+            <p className="mt-0.5 text-[11px] uppercase tracking-[0.2em] text-white/90">
               {acc.accountName}
             </p>
           </div>
           <button
             onClick={copy}
-            className="shrink-0 rounded-full border border-white/40 bg-white/20 px-4 py-2 font-body text-[10px] uppercase tracking-[0.25em] text-white backdrop-blur-sm transition-all active:scale-95 hover:bg-white/30"
+            className="shrink-0 rounded-full border border-white/40 bg-white/20 px-3.5 py-1.5 font-body text-[10px] uppercase tracking-[0.25em] text-white backdrop-blur-sm transition-all active:scale-95 hover:bg-white/30"
           >
             {copied ? 'Tersalin ✓' : 'Salin'}
           </button>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// Compact e-wallet card — just enough for name, phone, and the Dana logo.
+function DanaCard({
+  delay,
+  onCopied,
+}: {
+  delay: number;
+  onCopied: (ok: boolean) => void;
+}) {
+  const [copied, setCopied] = useState(false);
+  const copy = () => {
+    // optimistic feedback so the button reacts instantly, not after the await
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+    copyToClipboard(DANA.phone).then(onCopied);
+  };
+  return (
+    <div className="reveal-up w-full max-w-[280px]" style={revealStyle(delay)}>
+      <div className="glass-card flex items-center justify-between gap-3 rounded-2xl px-4 py-3 text-left shadow-ice">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2">
+            <img src={`${process.env.PUBLIC_URL}/dana.png`} alt="Dana logo" className="h-5 w-auto" />
+          </div>
+            <span className="text-[9px] uppercase tracking-[0.3em] text-ice-700">
+              {DANA.name}
+            </span>
+          <p className="mt-0.5 text-sm tabular-nums tracking-[0.15em] text-ice-800">
+            {DANA.phone}
+          </p>
+        </div>
+        <button
+          onClick={copy}
+          className="shrink-0 rounded-full border border-ice-300 bg-white/60 px-3.5 py-1.5 font-body text-[10px] uppercase tracking-[0.25em] text-ice-800 transition-all active:scale-95 hover:bg-white"
+        >
+          {copied ? 'Tersalin ✓' : 'Salin'}
+        </button>
       </div>
     </div>
   );
@@ -137,6 +175,7 @@ export const GiftSection = memo(function GiftSection() {
             onCopied={notify}
           />
         ))}
+        <DanaCard delay={520 + GIFT.length * 200} onCopied={notify} />
       </Content>
     </Section>
 

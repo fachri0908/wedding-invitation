@@ -6,13 +6,21 @@ import {
   useState,
   type CSSProperties,
 } from 'react';
+import {
+  addDoc,
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+} from 'firebase/firestore';
 import { Content, Layer, Section, SectionLabel } from '../components';
 import { revealStyle } from '../constants';
+import { db } from '../firebase';
 
-const COMMENTS_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbz6gy5SC-7c83vzr67-ifp6fBvEd5Xe53pnTJB1hvw7BuODYA5dkc2FLBwrs6N8G3lmPQ/exec';
+const COMMENTS = 'comments';
 
-type Comment = { name: string; comment: string, type: string };
+type Comment = { name: string; comment: string };
 
 export const CommentsSection = memo(function CommentsSection() {
   const [name, setName] = useState(
@@ -24,23 +32,21 @@ export const CommentsSection = memo(function CommentsSection() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(false);
 
-  // GET must read the response, so a normal (cors) request — Apps Script's
-  // googleusercontent redirect serves GET JSON with permissive CORS.
+  // Read the comments collection newest-first.
   const fetchComments = useCallback(async () => {
     try {
-      const res = await fetch(COMMENTS_ENDPOINT, { method: 'GET', mode: "no-cors" });
-      const data = await res.json();
-      // console.log(data)
-      const list: any[] = Array.isArray(data)
-        ? data
-        : data?.comments ?? data?.data ?? [];
+      const snap = await getDocs(
+        query(collection(db, COMMENTS), orderBy('createdAt', 'desc')),
+      );
       setComments(
-        list
-          .map((c) => ({
-            name: (c.name ?? '').toString(),
-            comment: (c.comment ?? '').toString(),
-            type: "comment",
-          }))
+        snap.docs
+          .map((d) => {
+            const c = d.data();
+            return {
+              name: (c.name ?? '').toString(),
+              comment: (c.comment ?? '').toString(),
+            };
+          })
           .filter((c) => c.comment),
       );
     } catch {
@@ -59,13 +65,12 @@ export const CommentsSection = memo(function CommentsSection() {
     if (!name || !text || submitting) return;
     setSubmitting(true);
     setError(false);
-    const optimistic: Comment = { name, comment: text , type: "comment" };
+    const optimistic: Comment = { name, comment: text };
     try {
-      // Same no-cors POST shape as the RSVP form; type distinguishes the row.
-      await fetch(COMMENTS_ENDPOINT, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify({ name, comment: text, type: 'comment' }),
+      await addDoc(collection(db, COMMENTS), {
+        name,
+        comment: text,
+        createdAt: serverTimestamp(),
       });
       setComments((prev) => [optimistic, ...prev]);
       setText('');
