@@ -1,4 +1,4 @@
-import { CSSProperties, useCallback, useRef, useState } from 'react';
+import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { ContinuousBackground, CornerDecor, Nav, OpeningGate } from './components';
 import { SectionTransition, Trigger } from './transitions';
 import { SECTIONS, SectionId } from './constants';
@@ -17,6 +17,9 @@ import { RsvpSection } from './sections/RsvpSection';
 import { GiftSection } from './sections/GiftSection';
 import { CommentsSection } from './sections/CommentsSection';
 import { ClosingSection } from './sections/ClosingSection';
+
+const AUDIO_START = 146.3; // seconds — skip intro; loop point returns here
+const FADE = 3; // seconds — fade-in after start, fade-out before end
 
 export default function App() {
   const scrollerRef = useRef<HTMLElement>(null);
@@ -41,12 +44,40 @@ export default function App() {
     if (i >= 0) goRef.current(i);
   }, [goRef]);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const seekedRef = useRef(false);
   const [muted, setMuted] = useState(false);
   const handleOpen = useCallback(() => {
     setOpened(true);
     // Click is the user gesture autoplay policy requires; play() buffers and
     // starts as soon as the file is ready. Swallow rejection (e.g. blocked).
-    audioRef.current?.play().catch(() => {});
+    const a = audioRef.current;
+    if (!a) return;
+    try { a.currentTime = AUDIO_START; } catch {}
+    a.play().catch(() => {});
+  }, []);
+  // Ramp volume up after AUDIO_START and down before the file ends. rAF (not
+  // timeupdate) so the fade is smooth. Runs only while the element is playing.
+  useEffect(() => {
+    const a = audioRef.current;
+    if (!a) return;
+    let raf = 0;
+    const tick = () => {
+      const t = a.currentTime;
+      const dur = a.duration;
+      let v = Math.max(0, Math.min(1, (t - AUDIO_START) / FADE));
+      if (Number.isFinite(dur)) v = Math.min(v, Math.max(0, (dur - t) / FADE));
+      a.volume = v;
+      raf = requestAnimationFrame(tick);
+    };
+    const start = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(tick); };
+    const stop = () => cancelAnimationFrame(raf);
+    a.addEventListener('play', start);
+    a.addEventListener('pause', stop);
+    return () => {
+      a.removeEventListener('play', start);
+      a.removeEventListener('pause', stop);
+      cancelAnimationFrame(raf);
+    };
   }, []);
   const handleRestart = useCallback(() => go('hero'), [go]);
   const toggleMute = useCallback(() => {
@@ -60,9 +91,18 @@ export default function App() {
     <>
       <audio
         ref={audioRef}
-        src={`${process.env.PUBLIC_URL}/nuansa-romansa.mp3`}
-        loop
+        src={`${process.env.PUBLIC_URL}/nuansaromansa.mp3`}
         preload="auto"
+        onLoadedMetadata={(e) => {
+          if (seekedRef.current) return;
+          seekedRef.current = true;
+          e.currentTarget.currentTime = AUDIO_START;
+        }}
+        onEnded={(e) => {
+          const a = e.currentTarget;
+          a.currentTime = AUDIO_START;
+          a.play().catch(() => {});
+        }}
       />
       <ContinuousBackground />
       {!opened ? <OpeningGate onOpen={handleOpen} /> : null}
