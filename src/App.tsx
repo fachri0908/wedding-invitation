@@ -18,7 +18,7 @@ import { GiftSection } from './sections/GiftSection';
 import { CommentsSection } from './sections/CommentsSection';
 import { ClosingSection } from './sections/ClosingSection';
 
-const AUDIO_START = 146.3; // seconds — skip intro; loop point returns here
+const AUDIO_START = 140.5; // seconds — skip intro; loop point returns here
 const FADE = 3; // seconds — fade-in after start, fade-out before end
 
 export default function App() {

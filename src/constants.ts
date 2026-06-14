@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 export const COUPLE = {
   bride: 'Annisa',
   groom: 'Fachri',
-  brideFull: 'Annisa Rahmah, S.Sos.',
+  brideFull: 'Annisa Rahmah, S.Sos',
   groomFull: 'Fachri Ahmad Zulkarnain, S.Kom',
   brideInitial: 'A',
   groomInitial: 'F',
