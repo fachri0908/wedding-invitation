@@ -1033,10 +1033,12 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
             left: 18,
             right: 18,
             top: 16,
+            bottom: 10,
+            overflow: 'hidden',
             zIndex: 2,
             animationDelay: opening ? '900ms' : undefined,
             borderRadius: 12,
-            padding: '18px 16px',
+            padding: '16px 16px',
             background:
               'linear-gradient(155deg, #FFFFFF 0%, #F2F7F6 60%, #E3F3F0 100%)',
             boxShadow: '0 14px 30px -12px rgba(6,42,59,0.5)',
