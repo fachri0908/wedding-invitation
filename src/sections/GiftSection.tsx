@@ -1,6 +1,6 @@
 import { memo, useRef, useState } from 'react';
 import { Content, Layer, Section, SectionLabel } from '../components';
-import { COUPLE, DANA, GIFT, revealStyle } from '../constants';
+import { DANA, GIFT, ORDER, revealStyle } from '../constants';
 
 type Account = (typeof GIFT)[number];
 
@@ -63,8 +63,8 @@ function GiftCard({
             {acc.bank}
           </span>
           <span className="font-script text-lg leading-none text-white/90">
-            {COUPLE.brideInitial}
-            {COUPLE.groomInitial}
+            {ORDER.firstInitial}
+            {ORDER.secondInitial}
           </span>
         </div>
         {/* chip */}

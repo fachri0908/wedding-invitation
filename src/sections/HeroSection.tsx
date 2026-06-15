@@ -9,7 +9,7 @@ import {
   Snowflake,
   SparkleTrail,
 } from '../components';
-import { COUPLE, revealStyle } from '../constants';
+import { ORDER, RECEPTION, revealStyle } from '../constants';
 
 export const HeroSection = memo(function HeroSection() {
   return (
@@ -49,9 +49,9 @@ export const HeroSection = memo(function HeroSection() {
           className="reveal-blur flex flex-col shimmer-text mt-4 font-script text-7xl leading-none drop-shadow-sm"
           style={revealStyle(420)}
         >
-          {COUPLE.bride}
+          {ORDER.firstName}
           <span className="mx-2 font-display italic">&</span>
-          {COUPLE.groom}
+          {ORDER.secondName}
         </h1>
         <div className="reveal-scale mt-6" style={revealStyle(620)}>
           <OrnamentDivider width={220} />
@@ -60,13 +60,13 @@ export const HeroSection = memo(function HeroSection() {
           className="reveal-up mt-4 font-display text-lg tracking-wide text-ice-800"
           style={revealStyle(780)}
         >
-          {COUPLE.date}
+          {RECEPTION.date}
         </p>
         <p
           className="reveal-up mt-1 text-[11px] uppercase tracking-[0.3em] text-ice-700"
           style={revealStyle(900)}
         >
-          {COUPLE.location}
+          {RECEPTION.address}
         </p>
         {/* <div className="reveal-up mt-10" style={revealStyle(1100)}>
           <ScrollCue />

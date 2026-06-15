@@ -7,7 +7,7 @@ import {
   Section,
   Snowflake,
 } from '../components';
-import { COUPLE, revealStyle } from '../constants';
+import { ORDER, revealStyle } from '../constants';
 
 export const ClosingSection = memo(function ClosingSection({ onRestart }: { onRestart: () => void }) {
   return (
@@ -48,7 +48,7 @@ export const ClosingSection = memo(function ClosingSection({ onRestart }: { onRe
           className="reveal-up mt-1 font-display text-lg italic text-ice-800"
           style={revealStyle(960)}
         >
-          — {COUPLE.bride} & {COUPLE.groom}
+          — {ORDER.firstName} & {ORDER.secondName}
         </p>
         <button
           onClick={onRestart}

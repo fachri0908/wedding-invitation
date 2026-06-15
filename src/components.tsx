@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { COUPLE } from './constants';
+import { ORDER, RECEPTION } from './constants';
 import { RevealContext } from './RevealContext';
 
 // Coarse-pointer / small screens get a lighter background (fewer flowers, blurs
@@ -172,9 +172,9 @@ export function Monogram({
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="flex items-baseline gap-1 font-display text-ice-800">
-          <span className="text-4xl italic">{COUPLE.brideInitial}</span>
+          <span className="text-4xl italic">{ORDER.firstInitial}</span>
           <span className="font-script text-3xl text-ice-600">|</span>
-          <span className="text-4xl italic">{COUPLE.groomInitial}</span>
+          <span className="text-4xl italic">{ORDER.secondInitial}</span>
         </div>
       </div>
     </div>
@@ -207,9 +207,9 @@ export function FloralRing({
       </div>
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="flex items-baseline gap-1 font-display text-ice-800">
-          <span className="text-4xl italic">{COUPLE.brideInitial}</span>
+          <span className="text-4xl italic">{ORDER.firstInitial}</span>
           <span className="font-script text-3xl text-ice-600">&amp;</span>
-          <span className="text-4xl italic">{COUPLE.groomInitial}</span>
+          <span className="text-4xl italic">{ORDER.secondInitial}</span>
         </div>
       </div>
     </div>
@@ -1045,16 +1045,16 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
           <div className="flex flex-col items-center text-center">
             <Monogram size={62} />
             <p className="mt-2 font-script text-3xl leading-none text-ice-800">
-              {COUPLE.bride} &amp; {COUPLE.groom}
+              {ORDER.firstName} &amp; {ORDER.secondName}
             </p>
             <div className="mt-1">
               <OrnamentDivider width={150} />
             </div>
             <p className="mt-1 font-display text-[11px] tracking-[0.35em] text-ice-700">
-              {COUPLE.dateShort}
+              {RECEPTION.dateShort}
             </p>
             <p className="text-[9px] tracking-[0.3em] text-ice-700/80">
-              {COUPLE.location}
+              {RECEPTION.address}
             </p>
           </div>
         </div>
@@ -1108,8 +1108,8 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
             }}
           >
             <span className="font-script text-sm text-ice-900">
-              {COUPLE.brideInitial}
-              {COUPLE.groomInitial}
+              {ORDER.firstInitial}
+              {ORDER.secondInitial}
             </span>
           </div>
         </div>

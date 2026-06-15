@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { CardFlora, Content, Layer, Section, SectionLabel } from '../components';
-import { COUPLE, revealStyle } from '../constants';
+import { COUPLE, ORDER, revealStyle } from '../constants';
 
 function PersonCard({
   name,
@@ -32,6 +32,21 @@ function PersonCard({
     </div>
   );
 }
+
+const brideCard = {
+  name: COUPLE.brideFull,
+  role: 'Mempelai Wanita',
+  parents: COUPLE.brideParents,
+  flora: 'green1',
+  floraClassName: 'rotate-[210deg]',
+};
+
+const groomCard = {
+  name: COUPLE.groomFull,
+  role: 'Mempelai Pria',
+  parents: COUPLE.groomParents,
+  flora: 'green3',
+};
 
 export const CoupleSection = memo(function CoupleSection() {
   return (
@@ -65,26 +80,15 @@ export const CoupleSection = memo(function CoupleSection() {
         </p>
 
         <div className="reveal-tilt-l w-full" style={revealStyle(260)}>
-          <PersonCard
-            name={COUPLE.brideFull}
-            role="Mempelai Wanita"
-            parents={COUPLE.brideParents}
-            flora="green1"
-            floraClassName='rotate-[210deg]'
-          />
+          <PersonCard {...(ORDER.groomFirst ? groomCard : brideCard)} />
         </div>
-        
+
         <div className="reveal-zoom" style={revealStyle(520)}>
           <span className="font-script text-5xl text-ice-600 drop-shadow">&</span>
         </div>
 
         <div className="reveal-tilt-r w-full" style={revealStyle(720)}>
-          <PersonCard
-            name={COUPLE.groomFull}
-            role="Mempelai Pria"
-            parents={COUPLE.groomParents}
-            flora="green3"
-          />
+          <PersonCard {...(ORDER.groomFirst ? brideCard : groomCard)} />
         </div>
       </Content>
     </Section>
