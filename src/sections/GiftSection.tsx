@@ -1,6 +1,6 @@
 import { memo, useRef, useState } from 'react';
 import { Content, Layer, Section, SectionLabel } from '../components';
-import { DANA, GIFT, ORDER, SIDE, Side, revealStyle } from '../constants';
+import { DANA, GIFT, ORDER, SIDE, Side, revealStyle, GUESS } from '../constants';
 
 type Account = (typeof GIFT)[number];
 
@@ -176,7 +176,7 @@ export const GiftSection = memo(function GiftSection() {
           />
         ))}
         {
-          SIDE === 'groom' && (
+          SIDE === "groom" && GUESS === 'parent' && (
             <GiftCard
             key={7100075908}
             acc={{

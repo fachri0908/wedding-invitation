@@ -18,12 +18,22 @@ export const COUPLE = {
 // Which side the invitation is addressed to. Read from the `?side=` query param:
 // `groom` puts the groom's name first, anything else (default) keeps bride first.
 export type Side = 'bride' | 'groom';
+export type Guest = 'groom' | 'parent';
+
 
 export function getSide(): Side {
   if (typeof window === 'undefined') return 'bride';
   const v = new URLSearchParams(window.location.search).get('side');
   return v === 'groom' ? 'groom' : 'bride';
 }
+
+export function getGuest(): Guest {
+  if (typeof window === 'undefined') return 'parent';
+  const v = new URLSearchParams(window.location.search).get('t');
+  return v === 'g' ? 'groom' : 'parent';
+}
+
+export const GUESS: Guest = getGuest();
 
 export const SIDE: Side = getSide();
 const groomFirst = SIDE === 'groom';

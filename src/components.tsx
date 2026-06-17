@@ -1125,6 +1125,9 @@ export function OpeningGate({ onOpen }: { onOpen: () => void }) {
         <p className="mt-2 font-script text-2xl leading-tight text-ice-900">
           {recipient}
         </p>
+        <p className="mt-2 text-md leading-tight text-ice-900">
+          Di Tempat
+        </p>
       </div>
 
       <button
