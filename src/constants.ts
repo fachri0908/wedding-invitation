@@ -58,14 +58,17 @@ export const RECEPTION = groomFirst
     };
 
 // TODO: replace with the real bank details before sending the invitation.
+// `side` matches the invited side so each guest sees the matching account.
 export const GIFT = [
   {
+    side: 'groom' as Side,
     owner: 'Mempelai Pria',
     bank: 'Bank BCA',
     accountName: 'Fachri Ahmad Zulkarnain',
     accountNumber: '2180236751',
   },
   {
+    side: 'bride' as Side,
     owner: 'Mempelai Wanita',
     bank: 'Bank BNI',
     accountName: 'Annisa Rahmah',

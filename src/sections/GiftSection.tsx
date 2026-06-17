@@ -1,6 +1,6 @@
 import { memo, useRef, useState } from 'react';
 import { Content, Layer, Section, SectionLabel } from '../components';
-import { DANA, GIFT, ORDER, revealStyle } from '../constants';
+import { DANA, GIFT, ORDER, SIDE, Side, revealStyle } from '../constants';
 
 type Account = (typeof GIFT)[number];
 
@@ -167,7 +167,7 @@ export const GiftSection = memo(function GiftSection() {
           berbagi kebahagiaan dalam bentuk hadiah, dapat melalui rekening
           berikut.
         </p>
-        {GIFT.map((acc, i) => (
+        {GIFT.filter((acc) => acc.side === SIDE).map((acc, i) => (
           <GiftCard
             key={acc.accountNumber}
             acc={acc}
@@ -175,7 +175,25 @@ export const GiftSection = memo(function GiftSection() {
             onCopied={notify}
           />
         ))}
-        <DanaCard delay={520 + GIFT.length * 200} onCopied={notify} />
+        {
+          SIDE === 'groom' && (
+            <GiftCard
+            key={7100075908}
+            acc={{
+              side: 'groom' as Side,
+              owner: 'Orang Tua Mempelai Pria',
+              bank: 'Bank BSI',
+              accountName: 'Yulianis',
+              accountNumber: '7100075908',
+            }}
+            delay={520 + 1 * 200}
+            onCopied={notify}
+          />
+          )
+        }
+        {SIDE === 'bride' && (
+          <DanaCard delay={520 + GIFT.length * 200} onCopied={notify} />
+        )}
       </Content>
     </Section>
 
