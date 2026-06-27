@@ -1,7 +1,8 @@
 import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { ContinuousBackground, CornerDecor, Nav, OpeningGate } from './components';
 import { SectionTransition, Trigger } from './transitions';
-import { SECTIONS, SectionId } from './constants';
+import { SECTIONS, SectionId, HIDE_GIFT } from './constants';
+
 import {
   useActiveSection,
   useParallax,
@@ -20,6 +21,7 @@ import { ClosingSection } from './sections/ClosingSection';
 
 const AUDIO_START = 140.5; // seconds — skip intro; loop point returns here
 const FADE = 3; // seconds — fade-in after start, fade-out before end
+const sections = (HIDE_GIFT ? SECTIONS.filter(s => s !== 'gift') : SECTIONS) as SectionId[];
 
 export default function App() {
   const scrollerRef = useRef<HTMLElement>(null);
@@ -35,12 +37,12 @@ export default function App() {
       kind: transCount.current % 2 ? 'birds' : 'petals',
     });
   });
-  const active = useActiveSection(scrollerRef, SECTIONS);
-  const revealed = useRevealed(scrollerRef, SECTIONS, opened);
+  const active = useActiveSection(scrollerRef, sections);
+  const revealed = useRevealed(scrollerRef, sections, opened);
 
   // stable identities so memoized Nav / ClosingSection don't re-render on `trans`
   const go = useCallback((id: string) => {
-    const i = SECTIONS.indexOf(id as SectionId);
+    const i = sections.indexOf(id as SectionId);
     if (i >= 0) goRef.current(i);
   }, [goRef]);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -130,7 +132,7 @@ export default function App() {
       )}
       <SectionTransition trigger={trans} />
       {opened && <CornerDecor />}
-      <Nav active={active} sections={SECTIONS} onGo={go} visible={opened} />
+      <Nav active={active} sections={sections} onGo={go} visible={opened} />
       <RevealContext.Provider value={revealed}>
         <main
           ref={scrollerRef}
@@ -148,7 +150,7 @@ export default function App() {
           <StoryContinued />
           <EventSection />
           <RsvpSection />
-          <GiftSection />
+          {!HIDE_GIFT && <GiftSection />}
           <CommentsSection />
           <ClosingSection onRestart={handleRestart} />
         </main>

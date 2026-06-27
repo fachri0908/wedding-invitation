@@ -33,7 +33,14 @@ export function getGuest(): Guest {
   return v === 'g' ? 'groom' : 'parent';
 }
 
+// Defaults to false (visible). Pass `?hideGift=true` to hide the gift section.
+export function getHideGift(): boolean {
+  if (typeof window === 'undefined') return false;
+  return new URLSearchParams(window.location.search).get('hideGift') === 'true';
+}
+
 export const GUESS: Guest = getGuest();
+export const HIDE_GIFT: boolean = getHideGift();
 
 export const SIDE: Side = getSide();
 const groomFirst = SIDE === 'groom';
